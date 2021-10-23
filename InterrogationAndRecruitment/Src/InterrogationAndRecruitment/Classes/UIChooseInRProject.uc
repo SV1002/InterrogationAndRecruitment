@@ -520,8 +520,8 @@ defaultproperties
 {
 	InputState = eInputState_Evaluate;
 
-	DisplayTag      = "UIBlueprint_BuildItems";
-	CameraTag       = "UIBlueprint_BuildItems";
+	DisplayTag      = "UIDisplay_Academy";
+	CameraTag       = "UIDisplay_Academy";
 
 	bAnimateOnInit = true;
 	bSelectFirstAvailable = true;
