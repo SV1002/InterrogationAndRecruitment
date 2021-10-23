@@ -50,7 +50,7 @@ static function X2DataTemplate CreateTech_InR_Interrogation_Andromedon()
 
 	Template.Requirements.SpecialRequirementsFn = class'X2StrategyElement_Interrogation_Advent'.static.AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=false;
+	Template.Requirements.bVisibleIfItemsNotMet=true;
 
 	// Item Rewards
 	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;
@@ -78,7 +78,7 @@ static function X2DataTemplate CreateTech_InR_Interrogation_Archon()
 
 	Template.Requirements.SpecialRequirementsFn = class'X2StrategyElement_Interrogation_Advent'.static.AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=false;
+	Template.Requirements.bVisibleIfItemsNotMet=true;
 
 	// Item Rewards
 	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;
@@ -106,7 +106,7 @@ static function X2DataTemplate CreateTech_InR_Interrogation_Berserker()
 
 	Template.Requirements.SpecialRequirementsFn = class'X2StrategyElement_Interrogation_Advent'.static.AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=false;
+	Template.Requirements.bVisibleIfItemsNotMet=true;
 
 	// Item Rewards
 	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;
@@ -134,7 +134,7 @@ static function X2DataTemplate CreateTech_InR_Interrogation_Chryssalid()
 
 	Template.Requirements.SpecialRequirementsFn = class'X2StrategyElement_Interrogation_Advent'.static.AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=false;
+	Template.Requirements.bVisibleIfItemsNotMet=true;
 
 	// Item Rewards
 	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;
@@ -162,7 +162,7 @@ static function X2DataTemplate CreateTech_InR_Interrogation_Faceless()
 
 	Template.Requirements.SpecialRequirementsFn = class'X2StrategyElement_Interrogation_Advent'.static.AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=false;
+	Template.Requirements.bVisibleIfItemsNotMet=true;
 
 	// Item Rewards
 	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;
@@ -190,7 +190,7 @@ static function X2DataTemplate CreateTech_InR_Interrogation_Muton()
 
 	Template.Requirements.SpecialRequirementsFn = class'X2StrategyElement_Interrogation_Advent'.static.AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=false;
+	Template.Requirements.bVisibleIfItemsNotMet=true;
 
 	// Item Rewards
 	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;
@@ -218,7 +218,7 @@ static function X2DataTemplate CreateTech_InR_Interrogation_Sectoid()
 
 	Template.Requirements.SpecialRequirementsFn = class'X2StrategyElement_Interrogation_Advent'.static.AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=false;
+	Template.Requirements.bVisibleIfItemsNotMet=true;
 
 	// Item Rewards
 	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;
@@ -246,7 +246,7 @@ static function X2DataTemplate CreateTech_InR_Interrogation_Viper()
 
 	Template.Requirements.SpecialRequirementsFn = class'X2StrategyElement_Interrogation_Advent'.static.AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=false;
+	Template.Requirements.bVisibleIfItemsNotMet=true;
 
 	// Item Rewards
 	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;

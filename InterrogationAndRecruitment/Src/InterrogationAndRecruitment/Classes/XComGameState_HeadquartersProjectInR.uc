@@ -127,7 +127,7 @@ function int CalculateWorkPerHour(optional XComGameState StartState = none, opti
 	History = `XCOMHISTORY;
 	XComHQ = XComGameState_HeadquartersXCom(History.GetSingleGameStateObjectForClass(class'XComGameState_HeadquartersXCom'));
 	//iTotalWork = XComHQ.ProvingGroundRate;	//<> HQ.ref
-	iTotalWork = InterrogationRate();
+	iTotalWork = XcomHQ.PsiTrainingRate;
 
 	// Can't make progress when paused or instant
 	// The only time instant projects should be calculating work per hour is right when an Order that turns them instant activates
@@ -145,27 +145,31 @@ function int CalculateWorkPerHour(optional XComGameState StartState = none, opti
 	return iTotalWork;
 }
 
-function int InterrogationRate()
-{
-  local int Rate;
-  //local XComGameState_FacilityXCom Facility;
-  //local XComGameState_StaffSlot StaffSlot;
-  //local StateObjectReference LocationRef;
-  Rate = 1;
-
-  //Facility = XComGameState_FacilityXCom(`XCOMHISTORY.GetGameStateForObjectID(LocationRef.ObjectID));
-  
-  //if (Facility.StaffSlots.Length = 1)
-  //{
-  //  Rate = Rate *2 ;
-  //}
-  //if (Facility.StaffSlots.Length > 1)
-  //{
-  //  Rate = Rate *3 ;
-  //}
-
-  return Rate;
-}
+//       TODO: Find a way to impliment this function to replace 'PsiTrainingRate'
+// 
+//       Idearly, time should scale 1:1 with one scientist halfing the durnation, and 2 thirding the time. (12 days by default + 2 staffed scientist = 4 days total)
+//
+//function int InterrogationRate()
+//{
+//  local int Rate;
+//  local XComGameState_FacilityXCom Facility;
+//  local XComGameState_StaffSlot StaffSlot;
+//  local StateObjectReference LocationRef;
+//  Rate = 1;
+//
+//  Facility = XComGameState_FacilityXCom(`XCOMHISTORY.GetGameStateForObjectID(LocationRef.ObjectID));
+//  
+//  if (Facility.StaffSlots.Length = 1)
+//  {
+//    Rate = Rate *2 ;
+//  }
+//  if (Facility.StaffSlots.Length > 1)
+//  {
+//    Rate = Rate *3 ;
+//  }
+//
+//  return Rate;
+//}
 
 //---------------------------------------------------------------------------------------
 // Add the tech to XComs list of completed research, and call any OnResearched methods for the tech

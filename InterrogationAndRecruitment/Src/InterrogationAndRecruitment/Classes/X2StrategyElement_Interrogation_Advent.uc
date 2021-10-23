@@ -52,7 +52,7 @@ static function X2DataTemplate CreateTech_InR_Interrogation_AdventTrooper()
 
 	Template.Requirements.SpecialRequirementsFn = AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=false;
+	Template.Requirements.bVisibleIfItemsNotMet=true;
 
 	// Item Rewards
 	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;
@@ -80,7 +80,7 @@ static function X2DataTemplate CreateTech_InR_Interrogation_AdventStunlancer()
 
 	Template.Requirements.SpecialRequirementsFn = AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=false;
+	Template.Requirements.bVisibleIfItemsNotMet=true;
 
 	// Item Rewards
 	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;
@@ -108,7 +108,7 @@ static function X2DataTemplate CreateTech_InR_Interrogation_AdventPurifier()
 
 	Template.Requirements.SpecialRequirementsFn = AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=false;
+	Template.Requirements.bVisibleIfItemsNotMet=true;
 
 	// Item Rewards
 	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;
@@ -136,7 +136,7 @@ static function X2DataTemplate CreateTech_InR_Interrogation_AdventShieldbearer()
 
 	Template.Requirements.SpecialRequirementsFn = AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=false;
+	Template.Requirements.bVisibleIfItemsNotMet=true;
 
 	// Item Rewards
 	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;
@@ -164,7 +164,7 @@ static function X2DataTemplate CreateTech_InR_Interrogation_AdventCaptain()
 
 	Template.Requirements.SpecialRequirementsFn = AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=false;
+	Template.Requirements.bVisibleIfItemsNotMet=true;
 
 	// Item Rewards
 	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;
@@ -192,7 +192,7 @@ static function X2DataTemplate CreateTech_InR_Interrogation_AdventPriest()
 
 	Template.Requirements.SpecialRequirementsFn = AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=false;
+	Template.Requirements.bVisibleIfItemsNotMet=true;
 
 	// Item Rewards
 	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;
@@ -220,7 +220,7 @@ static function X2DataTemplate CreateTech_InR_Interrogation_AdventGeneral()
 
 	Template.Requirements.SpecialRequirementsFn = AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=false;
+	Template.Requirements.bVisibleIfItemsNotMet=true;
 
 	// Item Rewards
 	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;
@@ -248,7 +248,7 @@ static function bool AreWeInTheInterrogationFacility()
 	//if the screen is not in the stack, assume we're not in the pexm facility buy menu
 	if (`HQPRES.ScreenStack.IsNotInStack(class'UIChooseInRProject'))
 	{
-		return false;
+		return true;
 	}
 
 	return true;

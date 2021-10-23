@@ -15,26 +15,26 @@ static function array<X2DataTemplate> CreateTemplates()
 {
 	local array<X2DataTemplate> StaffSlots;
 
-	StaffSlots.AddItem(CreateInterrogationFacilityEngineerStaffSlotTemplate());
+	StaffSlots.AddItem(CreateInterrogationFacilityScientistStaffSlotTemplate());
 	return StaffSlots;
 }
 
 //#############################################################################################
-//----------------   ENGINEER 'from PG'  ------------------------------------------------------
+//----------------   Scientist 'from PG'  ------------------------------------------------------
 //#############################################################################################
 
-static function X2DataTemplate CreateInterrogationFacilityEngineerStaffSlotTemplate()
+static function X2DataTemplate CreateInterrogationFacilityScientistStaffSlotTemplate()
 {
 	local X2StaffSlotTemplate Template;
 
-	Template = CreateStaffSlotTemplate('InterrogationFacilityStaffSlot_Eng');
-	Template.bEngineerSlot = true;
+	Template = CreateStaffSlotTemplate('InterrogationFacilityStaffSlot_Sci');
+	Template.bScientistSlot = true;
 	Template.FillFn = FillInterrogationFacilitySlot;
 	Template.EmptyFn = EmptyInterrogationFacilitySlot;
 	Template.ShouldDisplayToDoWarningFn = ShouldDisplayInterrogationFacilityToDoWarning;
 	Template.GetAvengerBonusAmountFn = GetInterrogationFacilityAvengerBonus;
 	Template.GetBonusDisplayStringFn = GetInterrogationFacilityBonusDisplayString;
-	Template.MatineeSlotName = "Engineer";
+	Template.MatineeSlotName = "Scientist";
 
 	return Template;
 }

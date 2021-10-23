@@ -42,8 +42,8 @@ static function X2DataTemplate CreateInterrogationFacilityTemplate()
 	Template.bIsIndestructible = false;				//can it be destroyed
 	Template.MapName = "AVG_PsiLab_A";				//to be replaced in future
 	Template.AnimMapName = "AVG_PsiLab_A_Anim";		//ditto
-	//Template.FlyInMapName = "";					// ??
-	Template.FlyInRemoteEvent = '';					//'CIN_Flyin_Infirmary'; //??
+	//Template.FlyInMapName = "";					//redundant
+	//Template.FlyInRemoteEvent = '';				//ditto	
 
 	Template.strImage =  "img:///UILibrary_StrategyImages.FacilityIcons.ChooseFacility_PsionicLab";//to be replaced
 
@@ -70,20 +70,20 @@ static function X2DataTemplate CreateInterrogationFacilityTemplate()
 
 	//crew
 	Template.BaseMinFillerCrew = 1;
-    	Template.FillerSlots.AddItem('Engineer');
-        Template.FillerSlots.AddItem('Engineer');
+    	Template.FillerSlots.AddItem('Scientist');
+        Template.FillerSlots.AddItem('Scientist');
 		
-    	Template.FillerSlots.AddItem('Engineer');
-        Template.FillerSlots.AddItem('Engineer');
+    	Template.FillerSlots.AddItem('Scientist');
+        Template.FillerSlots.AddItem('Scientist');
 	Template.MaxFillerCrew = 12;
 	
-	Template.MatineeSlotsForUpgrades.AddItem('EngineerSlot2');
+	Template.MatineeSlotsForUpgrades.AddItem('ScientistSlot2');
 	
 	//staff slots
-	StaffSlotDef0.StaffSlotTemplateName = 'InterrogationFacilityStaffSlot_Eng';
+	StaffSlotDef0.StaffSlotTemplateName = 'InterrogationFacilityStaffSlot_Sci';
 	Template.StaffSlotDefs.AddItem(StaffSlotDef0);
 
-	StaffSlotDef1.StaffSlotTemplateName = 'InterrogationFacilityStaffSlot_Eng';
+	StaffSlotDef1.StaffSlotTemplateName = 'InterrogationFacilityStaffSlot_Sci';
 	StaffSlotDef1.bStartsLocked = true;
 	Template.StaffSlotDefs.AddItem(StaffSlotDef1);
 
