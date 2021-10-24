@@ -188,13 +188,36 @@ function OnProjectCompleted()
 	class'XComGameStateContext_HeadquartersOrder_InR'.static.IssueHeadquartersOrder_InR(OrderInput);
 
 	`GAME.GetGeoscape().Pause();
-	TechState = XComGameState_Tech(`XCOMHISTORY.GetGameStateForObjectID(TechRef.ObjectID));
 
-	TechState.DisplayTechCompletePopups();
-
-	foreach TechState.ItemRewards(ItemTemplate)
+	if (bProvingGroundProject)
 	{
-		UIInterrogationFacilityItemReceived(ItemTemplate, TechRef);
+		TechState = XComGameState_Tech(`XCOMHISTORY.GetGameStateForObjectID(TechRef.ObjectID));
+
+		// If the Proving Ground project rewards an item, display all the project popups on the Geoscape
+		if (TechState.ItemRewards.Length > 0)
+		{
+			TechState.DisplayTechCompletePopups();
+
+			foreach TechState.ItemRewards(ItemTemplate)
+			{
+				UIInterrogationFacilityItemReceived(ItemTemplate, TechRef);
+			}
+		}
+		else // Otherwise give the normal project complete popup
+		{
+			`HQPRES.UIProvingGroundProjectComplete(TechRef);
+		}
+	}
+	else if(bInstant)
+	{
+		TechState = XComGameState_Tech(`XCOMHISTORY.GetGameStateForObjectID(TechRef.ObjectID));
+		TechState.DisplayTechCompletePopups();
+
+		`HQPRES.ResearchReportPopup(TechRef);
+	}
+	else
+	{
+		`HQPRES.UIResearchComplete(TechRef);
 	}
 }
 
