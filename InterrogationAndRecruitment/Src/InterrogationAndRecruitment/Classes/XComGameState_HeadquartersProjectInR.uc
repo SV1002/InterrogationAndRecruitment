@@ -188,37 +188,41 @@ function OnProjectCompleted()
 	class'XComGameStateContext_HeadquartersOrder_InR'.static.IssueHeadquartersOrder_InR(OrderInput);
 
 	`GAME.GetGeoscape().Pause();
+	TechState = XComGameState_Tech(`XCOMHISTORY.GetGameStateForObjectID(TechRef.ObjectID));
 
-	if (bProvingGroundProject)
+	TechState.DisplayTechCompletePopups();
+
+	foreach TechState.ItemRewards(ItemTemplate)
 	{
-		TechState = XComGameState_Tech(`XCOMHISTORY.GetGameStateForObjectID(TechRef.ObjectID));
-
-		// If the Proving Ground project rewards an item, display all the project popups on the Geoscape
-		if (TechState.ItemRewards.Length > 0)
-		{
-			TechState.DisplayTechCompletePopups();
-
-			foreach TechState.ItemRewards(ItemTemplate)
-			{
-				`HQPRES.UIProvingGroundItemReceived(ItemTemplate, TechRef);
-			}
-		}
-		else // Otherwise give the normal project complete popup
-		{
-			`HQPRES.UIProvingGroundProjectComplete(TechRef);
-		}
+		UIInterrogationFacilityItemReceived(ItemTemplate, TechRef);
 	}
-	else if(bInstant)
-	{
-		TechState = XComGameState_Tech(`XCOMHISTORY.GetGameStateForObjectID(TechRef.ObjectID));
-		TechState.DisplayTechCompletePopups();
+}
 
-		`HQPRES.ResearchReportPopup(TechRef);
-	}
-	else
-	{
-		`HQPRES.UIResearchComplete(TechRef);
-	}
+static function BuildUIAlert_LnR (
+	out DynamicPropertySet PropertySet,
+	Name AlertName,
+	delegate<X2StrategyGameRulesetDataStructures.AlertCallback> CallbackFunction,
+	Name EventToTrigger,
+	string SoundToPlay,
+	bool bImmediateDisplay = true
+)
+{
+	class'X2StrategyGameRulesetDataStructures'.static.BuildDynamicPropertySet(PropertySet, 'UIAlert_LnR', AlertName, CallbackFunction, bImmediateDisplay, true, true, false);
+	class'X2StrategyGameRulesetDataStructures'.static.AddDynamicNameProperty(PropertySet, 'EventToTrigger', EventToTrigger);
+	class'X2StrategyGameRulesetDataStructures'.static.AddDynamicStringProperty(PropertySet, 'SoundToPlay', SoundToPlay);
+}
+
+static function UIInterrogationFacilityItemReceived (X2ItemTemplate ItemTemplate, StateObjectReference TechRef)
+{
+	local XComHQPresentationLayer HQPres;
+	local DynamicPropertySet PropertySet;
+
+	HQPres = `HQPRES;
+
+	BuildUIAlert_LnR(PropertySet, 'eAlert_ItemReceivedInterrogationFacility', none, '', "Geoscape_ItemComplete");
+	class'X2StrategyGameRulesetDataStructures'.static.AddDynamicNameProperty(PropertySet, 'ItemTemplate', ItemTemplate.DataName);
+	class'X2StrategyGameRulesetDataStructures'.static.AddDynamicIntProperty(PropertySet, 'TechRef', TechRef.ObjectID);
+	HQPres.QueueDynamicPopup(PropertySet);
 }
 
 //---------------------------------------------------------------------------------------

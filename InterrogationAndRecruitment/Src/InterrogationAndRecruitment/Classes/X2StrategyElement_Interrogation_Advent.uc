@@ -12,7 +12,11 @@
 //*******************************************************************************************
 class X2StrategyElement_Interrogation_Advent extends X2StrategyElement_XpackTechs config (InterrogationAndRecruitment);
 
-var config int AdventTrooperInterrogationDays, AdventStunlancerInterrogationDays, AdventPurifierInterrogationDays, AdventShieldbearerInterrogationDays, AdventCaptainInterrogationDays, AdventPriestInterrogationDays, AdventGeneralInterrogationDays;
+var config int AdventStunlancerInterrogationDays, AdventPurifierInterrogationDays, AdventShieldbearerInterrogationDays, AdventCaptainInterrogationDays, AdventPriestInterrogationDays, AdventGeneralInterrogationDays;
+
+var config int AdventTrooperInterrogationDays, AdventTrooperMinIntel, AdventTrooperMaxIntel, AdventTrooperFacilityLeadChance;
+
+
 
 
 var config bool bSkipPGExclusion;
@@ -45,18 +49,17 @@ static function X2DataTemplate CreateTech_InR_Interrogation_AdventTrooper()
 	// It is important to give the prefix "Tech_InR" so that the UIChoose page for the Facility knows what to show :)
 	`CREATE_X2TEMPLATE(class'X2TechTemplate', Template, 'Tech_InR_Interrogation_AdventTrooper');
 	Template.PointsToComplete = StafferXDays(1, default.AdventTrooperInterrogationDays); //8 days = 960 
-	Template.strImage = "img:///UILibrary_InR.Tech_Images.TECH_Interrogation_AdventTrooper";
+	Template.strImage = "img:///UILibrary_PexM.Tech_Images.TECH_PSI_PCS";
 	Template.bProvingGround = true;
 	Template.bRepeatable = true;
 	Template.SortingTier = 1;
 
 	Template.Requirements.SpecialRequirementsFn = AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=true;
+	Template.Requirements.bVisibleIfItemsNotMet=false;
 
 	// Item Rewards
-	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;
-	Template.RewardDeck = 'Interrogation_AdventTrooper_Rewards';
+	Template.ResearchCompletedFn = InterrogationTechCompleted;
 	
 	Resources.ItemTemplateName = 'InR_Captive_AdventTrooper';
 	Resources.Quantity = 1;
@@ -235,6 +238,59 @@ static function X2DataTemplate CreateTech_InR_Interrogation_AdventGeneral()
 
 //*******************************************************************************************
 //*******************************************************************************************
+
+static function InterrogationTechCompleted(XComGameState NewGameState, XComGameState_Tech TechState)
+{
+	local X2ItemTemplateManager ItemTemplateManager;
+	local X2ItemTemplate ItemTemplate, FacilityLeadItemTemplate;	
+	local XComGameStateHistory History;
+	local XComGameState_HeadquartersXCom XComHQ;
+	local int IntelAmount;
+
+	History = `XCOMHISTORY;
+
+	foreach NewGameState.IterateByClassType(class'XComGameState_HeadquartersXCom', XComHQ)
+	{
+		break;
+	}
+
+	if(XComHQ == none)
+	{
+		XComHQ = XComGameState_HeadquartersXCom(History.GetSingleGameStateObjectForClass(class'XComGameState_HeadquartersXCom'));
+		XComHQ = XComGameState_HeadquartersXCom(NewGameState.ModifyStateObject(class'XComGameState_HeadquartersXCom', XComHQ.ObjectID));
+	}
+	
+	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
+	FacilityLeadItemTemplate = ItemTemplateManager.FindItemTemplate('FacilityLeadItem');
+
+	if(TechState.GetMyTemplateName() == 'Tech_InR_Interrogation_AdventTrooper')
+	{
+		IntelAmount = default.AdventTrooperMinIntel + `SYNC_RAND_STATIC(default.AdventTrooperMaxIntel - default.AdventTrooperMinIntel + 1);
+		if (`SYNC_RAND_STATIC(100) < default.AdventTrooperFacilityLeadChance)
+		{
+			ItemTemplate = ItemTemplateManager.FindItemTemplate('Interrogation_AdventTrooper_FacilityLead');
+			GiveInterrogationItemReward(NewGameState, TechState, ItemTemplate);
+			class'XComGameState_HeadquartersXCom'.static.GiveItem(NewGameState, FacilityLeadItemTemplate);
+		}
+		else
+		{
+			ItemTemplate = ItemTemplateManager.FindItemTemplate('Interrogation_AdventTrooper_Intel');
+			GiveInterrogationItemReward(NewGameState, TechState, ItemTemplate);
+		}
+	}
+	
+	XComHQ.AddResource(NewGameState, 'Intel', IntelAmount);
+}
+
+private static function GiveInterrogationItemReward(XComGameState NewGameState, XComGameState_Tech TechState, X2ItemTemplate ItemTemplate)
+{	
+	class'XComGameState_HeadquartersXCom'.static.GiveItem(NewGameState, ItemTemplate);
+
+	TechState.ItemRewards.Length = 0; // Reset the item rewards array in case the tech is repeatable
+	TechState.ItemRewards.AddItem(ItemTemplate); // Needed for UI Alert display info
+	TechState.bSeenResearchCompleteScreen = false; // Reset the research report for techs that are repeatable
+}
+
 
 //helper func			
 //Template.Requirements.SpecialRequirementsFn = AreWeInTheInterrogationFacility;

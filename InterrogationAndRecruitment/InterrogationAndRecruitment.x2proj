@@ -16,9 +16,6 @@
     <Folder Include="Src\InterrogationAndRecruitment\Classes\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Config\XComGameCore.ini">
-      <SubType>Content</SubType>
-    </Content>
     <Content Include="Config\XComInterrogationAndRecruitment.ini">
       <SubType>Content</SubType>
     </Content>
@@ -31,6 +28,9 @@
     <Content Include="Config\XComEngine.ini" />
     <Content Include="Config\XComGame.ini" />
     <Content Include="Localization\XComGame.int" />
+    <Content Include="Src\InterrogationAndRecruitment\Classes\UIAlert_InR.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\InterrogationAndRecruitment\Classes\UIChooseInRProject.uc">
       <SubType>Content</SubType>
     </Content>
@@ -56,6 +56,9 @@
     <Content Include="Src\InterrogationAndRecruitment\Classes\X2Item_InR.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\InterrogationAndRecruitment\Classes\X2Item_InR_Rewards.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\InterrogationAndRecruitment\Classes\X2StrategyElement_InRFacilities.uc">
       <SubType>Content</SubType>
     </Content>
@@ -78,6 +81,9 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\InterrogationAndRecruitment\Classes\XComGameState_Unit_RemoveLoot.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\InterrogationAndRecruitment\Classes\XComHQPresentationLayer_InR.uc">
       <SubType>Content</SubType>
     </Content>
   </ItemGroup>
