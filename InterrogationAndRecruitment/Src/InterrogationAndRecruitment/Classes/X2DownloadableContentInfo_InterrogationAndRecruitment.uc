@@ -163,3 +163,32 @@ static function bool IsResearchInHistory(name ResearchName)
 	}
 	return false;
 }
+
+//////////////////////////////////
+/// Vanilla DLCInfo misc hooks ///
+//////////////////////////////////
+
+static function bool DisplayQueuedDynamicPopup (DynamicPropertySet PropertySet)
+{
+	if (PropertySet.PrimaryRoutingKey == 'UIAlert_InR')
+	{
+		CallUIAlert_InR(PropertySet);
+		return true;
+	}
+
+	return false;
+}
+
+static protected function CallUIAlert_InR (const out DynamicPropertySet PropertySet)
+{
+	local XComHQPresentationLayer HQPres;
+	local UIAlert_InR Alert;
+
+	HQPres = `HQPRES;
+
+	Alert = HQPres.Spawn(class'UIAlert_InR', HQPres);
+	Alert.DisplayPropertySet = PropertySet;
+	Alert.eAlertName = PropertySet.SecondaryRoutingKey;
+
+	HQPres.ScreenStack.Push(Alert);
+}
