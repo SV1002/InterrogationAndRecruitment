@@ -11,7 +11,9 @@
 //	LAST UPDATED    23/10/21    1:15
 //
 //*******************************************************************************************
-class XComGameState_HeadquartersProjectInR extends XComGameState_HeadquartersProjectResearch;
+class XComGameState_HeadquartersProjectInR extends XComGameState_HeadquartersProjectResearch config(InterrogationAndRecruitment);
+
+var config int XComHeadquarters_DefaultInterrogationWorkPerHour;
 
 static function StateObjectReference GetCurrentInRProject()
 {
@@ -126,8 +128,7 @@ function int CalculateWorkPerHour(optional XComGameState StartState = none, opti
 
 	History = `XCOMHISTORY;
 	XComHQ = XComGameState_HeadquartersXCom(History.GetSingleGameStateObjectForClass(class'XComGameState_HeadquartersXCom'));
-	//iTotalWork = XComHQ.ProvingGroundRate;	//<> HQ.ref
-	iTotalWork = XcomHQ.PsiTrainingRate;
+	iTotalWork = InterrogationRate();
 
 	// Can't make progress when paused or instant
 	// The only time instant projects should be calculating work per hour is right when an Order that turns them instant activates
@@ -136,40 +137,17 @@ function int CalculateWorkPerHour(optional XComGameState StartState = none, opti
 	{
 		return 0;
 	}
-	else
-	{
-		// Check for Higher Learning
-		iTotalWork += Round(float(iTotalWork) * (float(XComHQ.EngineeringEffectivenessPercentIncrease) / 100.0));
-	}
 
 	return iTotalWork;
 }
 
-//       TODO: Find a way to impliment this function to replace 'PsiTrainingRate'
-// 
-//       Idearly, time should scale 1:1 with one scientist halfing the durnation, and 2 thirding the time. (12 days by default + 2 staffed scientist = 4 days total)
-//
-//function int InterrogationRate()
-//{
-//  local int Rate;
-//  local XComGameState_FacilityXCom Facility;
-//  local XComGameState_StaffSlot StaffSlot;
-//  local StateObjectReference LocationRef;
-//  Rate = 1;
-//
-//  Facility = XComGameState_FacilityXCom(`XCOMHISTORY.GetGameStateForObjectID(LocationRef.ObjectID));
-//  
-//  if (Facility.StaffSlots.Length = 1)
-//  {
-//    Rate = Rate *2 ;
-//  }
-//  if (Facility.StaffSlots.Length > 1)
-//  {
-//    Rate = Rate *3 ;
-//  }
-//
-//  return Rate;
-//}
+function int InterrogationRate()
+{
+	local int Rate;
+	Rate = default.XComHeadquarters_DefaultInterrogationWorkPerHour;
+
+	return Rate;
+}
 
 //---------------------------------------------------------------------------------------
 // Add the tech to XComs list of completed research, and call any OnResearched methods for the tech
@@ -179,7 +157,6 @@ function OnProjectCompleted()
 	local HeadquartersOrderInputContext OrderInput;
 	local StateObjectReference TechRef;
 	local X2ItemTemplate ItemTemplate;
-
 	TechRef = ProjectFocus;
 
 	OrderInput.OrderType = eHeadquartersOrderType_ResearchCompleted;
@@ -230,7 +207,7 @@ static function BuildUIAlert_LnR (
 	bool bImmediateDisplay = true
 )
 {
-	class'X2StrategyGameRulesetDataStructures'.static.BuildDynamicPropertySet(PropertySet, 'UIAlert_LnR', AlertName, CallbackFunction, bImmediateDisplay, true, true, false);
+	class'X2StrategyGameRulesetDataStructures'.static.BuildDynamicPropertySet(PropertySet, 'UIAlert_InR', AlertName, CallbackFunction, bImmediateDisplay, true, true, false);
 	class'X2StrategyGameRulesetDataStructures'.static.AddDynamicNameProperty(PropertySet, 'EventToTrigger', EventToTrigger);
 	class'X2StrategyGameRulesetDataStructures'.static.AddDynamicStringProperty(PropertySet, 'SoundToPlay', SoundToPlay);
 }
@@ -242,7 +219,7 @@ static function UIInterrogationFacilityItemReceived (X2ItemTemplate ItemTemplate
 
 	HQPres = `HQPRES;
 
-	BuildUIAlert_LnR(PropertySet, 'eAlert_ItemReceivedInterrogationFacility', none, '', "Geoscape_ItemComplete");
+	BuildUIAlert_LnR(PropertySet, 'eAlert_ItemReceivedInterrogationFacility', None, '', "Geoscape_ItemComplete");
 	class'X2StrategyGameRulesetDataStructures'.static.AddDynamicNameProperty(PropertySet, 'ItemTemplate', ItemTemplate.DataName);
 	class'X2StrategyGameRulesetDataStructures'.static.AddDynamicIntProperty(PropertySet, 'TechRef', TechRef.ObjectID);
 	HQPres.QueueDynamicPopup(PropertySet);

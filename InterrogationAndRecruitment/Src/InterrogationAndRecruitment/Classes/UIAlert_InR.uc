@@ -44,12 +44,20 @@ simulated function name GetLibraryID ()
 
 simulated function InterrogationFacilityItemReceivedAlert()
 {
+	local XComGameStateHistory History;
 	local XComGameState_Tech TechState;
 	local TAlertAvailableInfo kInfo;
 	local string TitleStr;
 	local X2ItemTemplate ItemTemplate;
 	local X2ItemTemplateManager TemplateManager;
+	local XGParamTag ParamTag;
 		
+	History = `XCOMHISTORY;
+	ParamTag = XGParamTag(`XEXPANDCONTEXT.FindTag("XGParam"));
+	TechState = XComGameState_Tech(History.GetGameStateForObjectID(
+		class'X2StrategyGameRulesetDataStructures'.static.GetDynamicIntProperty(DisplayPropertySet, 'TechRef')));
+
+	ParamTag.StrValue0 = string(TechState.IntelReward);
 	TemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
 
 	ItemTemplate = TemplateManager.FindItemTemplate(
@@ -61,13 +69,13 @@ simulated function InterrogationFacilityItemReceivedAlert()
 
 	kInfo.strTitle = TitleStr;
 	kInfo.strName = ItemTemplate.GetItemFriendlyName(, false);
-	kInfo.strBody = ItemTemplate.GetItemBriefSummary() $ "\n\n" $ Repl(m_strItemReceivedInInventoryInterrogation, "%ITEMNAME", ItemTemplate.GetItemFriendlyName(, false));
+	kInfo.strBody = ItemTemplate.GetItemBriefSummary();
 	kInfo.strConfirm = m_strAccept;
 	kInfo.strImage = ItemTemplate.strImage;
 	kInfo.eColor = eUIState_Good;
 	kInfo.clrAlert = MakeLinearColor(0.0, 0.75, 0.0, 1);
 
-	kInfo = FillInShenAlertAvailable(kInfo);
+	kInfo = FillInTyganAlertAvailable(kInfo);
 
 	BuildAvailableAlert(kInfo);
 }

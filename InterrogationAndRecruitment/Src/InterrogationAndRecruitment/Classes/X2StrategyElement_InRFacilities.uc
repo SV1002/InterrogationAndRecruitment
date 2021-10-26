@@ -40,8 +40,8 @@ static function X2DataTemplate CreateInterrogationFacilityTemplate()
 	Template.bIsCoreFacility = false;				//is it one of the big rooms
 	Template.bIsUniqueFacility = true;				//can only one be built at a time
 	Template.bIsIndestructible = false;				//can it be destroyed
-	Template.MapName = "AVG_PsiLab_A";				//to be replaced in future
-	Template.AnimMapName = "AVG_PsiLab_A_Anim";		//ditto
+	Template.MapName = "AVG_InterrogationFacility_A";				//to be replaced in future
+	Template.AnimMapName = "AVG_InterrogationFacility_A_Anim";		//ditto
 	//Template.FlyInMapName = "";					//redundant
 	//Template.FlyInRemoteEvent = '';				//ditto	
 

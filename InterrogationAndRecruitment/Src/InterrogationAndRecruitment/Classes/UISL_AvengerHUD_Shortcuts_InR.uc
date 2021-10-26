@@ -114,7 +114,7 @@ static function ResetSubMenuItems(UIScreen Screen)
 	}
 
 	//remove the button directly
-	AvengerHud.Shortcuts.RemoveSubMenu(eUIAvengerShortcutCat_Barracks, 'GotoInRFacility');
+	AvengerHud.Shortcuts.RemoveSubMenu(eUIAvengerShortcutCat_Barracks, 'GotoInterrogationFacility');
 
 	//refresh the HUD buttons
 	AvengerHud.Shortcuts.UpdateCategories();
@@ -128,7 +128,7 @@ static protected function OnButtonClickedSimple(optional StateObjectReference Fa
 
 	//find and go to the pexm
 	XComHQ = class'UIUtilities_Strategy'.static.GetXComHQ();
-	InRFacilityState = XComHQ.GetFacilityByName('InRFacility');
+	InRFacilityState = XComHQ.GetFacilityByName('InterrogationFacility');
 
 	GoDirectToInRFacility(InRFacilityState.GetReference());
 }

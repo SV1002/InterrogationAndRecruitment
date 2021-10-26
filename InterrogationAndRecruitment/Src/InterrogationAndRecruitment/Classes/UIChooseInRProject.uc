@@ -520,8 +520,8 @@ defaultproperties
 {
 	InputState = eInputState_Evaluate;
 
-	DisplayTag      = "UIDisplay_Academy";
-	CameraTag       = "UIDisplay_Academy";
+	DisplayTag      = "UIBlueprint_InterrogationFacility";
+	CameraTag       = "UIBlueprint_InterrogationFacility";
 
 	bAnimateOnInit = true;
 	bSelectFirstAvailable = true;

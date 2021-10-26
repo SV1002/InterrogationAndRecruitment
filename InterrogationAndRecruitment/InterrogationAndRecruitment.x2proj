@@ -10,13 +10,37 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Config\" />
+    <Folder Include="Content\Maps" />
+    <Folder Include="Content\Maps\Strategy" />
+    <Folder Include="Content\Maps\Strategy\Avenger" />
+    <Folder Include="Content\Maps\Strategy\Avenger\Rooms" />
+    <Folder Include="Content\Maps\Strategy\Avenger\Rooms\InterrogationFacility" />
     <Folder Include="Localization\" />
+    <Folder Include="Content" />
     <Folder Include="Src\" />
     <Folder Include="Src\InterrogationAndRecruitment\" />
     <Folder Include="Src\InterrogationAndRecruitment\Classes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\XComInterrogationAndRecruitment.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Maps\Strategy\Avenger\Rooms\InterrogationFacility\AVG_InterrogationFacility_A.umap">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Maps\Strategy\Avenger\Rooms\InterrogationFacility\AVG_InterrogationFacility_A_Anim.umap">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Maps\Strategy\Avenger\Rooms\InterrogationFacility\AVG_InterrogationFacility_A_Damaged.umap">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Maps\Strategy\Avenger\Rooms\InterrogationFacility\AVG_InterrogationFacility_A_Disabled.umap">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Maps\Strategy\Avenger\Rooms\InterrogationFacility\AVG_InterrogationFacility_A_Pristine.umap">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Maps\Strategy\Avenger\Rooms\InterrogationFacility\AVG_InterrogationFacility_A_VIEWER.umap">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Localization\InterrogationAndRecruitment.int">

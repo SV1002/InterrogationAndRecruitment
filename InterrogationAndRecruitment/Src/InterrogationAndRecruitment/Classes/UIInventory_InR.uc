@@ -121,6 +121,6 @@ simulated function UpdateNavHelp()
 
 defaultproperties
 {
-	DisplayTag      = "UIDisplay_Academy";
-	CameraTag       = "UIDisplay_Academy";
+	DisplayTag      = "UIBlueprint_InterrogationFacility_Inventory";
+	CameraTag       = "UIBlueprint_InterrogationFacility_Inventory";
 }

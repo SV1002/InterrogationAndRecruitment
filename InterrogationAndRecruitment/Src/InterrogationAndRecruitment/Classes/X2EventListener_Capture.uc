@@ -177,7 +177,7 @@ static function GiveLootToXCOM(XComGameState NewGameState, XComGameState_Unit Ca
         XComHQ.PutItemInInventory(NewGameState, ItemState);
 	}
 
-	if(IsAdventStunlancer(CapturedUnit))
+	else if(IsAdventStunlancer(CapturedUnit))
 	{
     	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_AdventStunlancer');
         ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
@@ -186,7 +186,7 @@ static function GiveLootToXCOM(XComGameState NewGameState, XComGameState_Unit Ca
         XComHQ.PutItemInInventory(NewGameState, ItemState);
 	}
 
-	if(IsAdventPurifier(CapturedUnit))
+	else if(IsAdventPurifier(CapturedUnit))
 	{
     	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_AdventPurifier');
         ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
@@ -195,7 +195,7 @@ static function GiveLootToXCOM(XComGameState NewGameState, XComGameState_Unit Ca
         XComHQ.PutItemInInventory(NewGameState, ItemState);
 	}
 
-	if(IsAdventShieldbearer(CapturedUnit))
+	else if(IsAdventShieldbearer(CapturedUnit))
 	{
     	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_AdventShieldbearer');
         ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
@@ -204,7 +204,7 @@ static function GiveLootToXCOM(XComGameState NewGameState, XComGameState_Unit Ca
         XComHQ.PutItemInInventory(NewGameState, ItemState);
 	}
 
-	if(IsAdventCaptain(CapturedUnit))
+	else if(IsAdventCaptain(CapturedUnit))
 	{
     	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_AdventCaptain');
         ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
@@ -213,7 +213,7 @@ static function GiveLootToXCOM(XComGameState NewGameState, XComGameState_Unit Ca
         XComHQ.PutItemInInventory(NewGameState, ItemState);
 	}
 
-	if(IsAdventPriest(CapturedUnit))
+	else if(IsAdventPriest(CapturedUnit))
 	{
     	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_AdventPriest');
         ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
@@ -222,7 +222,7 @@ static function GiveLootToXCOM(XComGameState NewGameState, XComGameState_Unit Ca
         XComHQ.PutItemInInventory(NewGameState, ItemState);
 	}
 
-	if(IsAdventGeneral(CapturedUnit))
+	else if(IsAdventGeneral(CapturedUnit))
 	{
     	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_AdventGeneral');
         ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
@@ -233,7 +233,7 @@ static function GiveLootToXCOM(XComGameState NewGameState, XComGameState_Unit Ca
 
 	//Alien Captives
 
-	if(IsAndromedon(CapturedUnit))
+	else if(IsAndromedon(CapturedUnit))
 	{
     	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_Andromedon');
         ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
@@ -242,7 +242,7 @@ static function GiveLootToXCOM(XComGameState NewGameState, XComGameState_Unit Ca
         XComHQ.PutItemInInventory(NewGameState, ItemState);
 	}
 
-	if(IsArchon(CapturedUnit))
+	else if(IsArchon(CapturedUnit))
 	{
     	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_Archon');
         ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
@@ -251,7 +251,7 @@ static function GiveLootToXCOM(XComGameState NewGameState, XComGameState_Unit Ca
         XComHQ.PutItemInInventory(NewGameState, ItemState);
 	}
 
-	if(IsBerserker(CapturedUnit))
+	else if(IsBerserker(CapturedUnit))
 	{
     	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_Berserker');
         ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
@@ -260,7 +260,7 @@ static function GiveLootToXCOM(XComGameState NewGameState, XComGameState_Unit Ca
         XComHQ.PutItemInInventory(NewGameState, ItemState);
 	}
 
-	if(IsChryssalid(CapturedUnit))
+	else if(IsChryssalid(CapturedUnit))
 	{
     	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_Chryssalid');
         ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
@@ -269,7 +269,7 @@ static function GiveLootToXCOM(XComGameState NewGameState, XComGameState_Unit Ca
         XComHQ.PutItemInInventory(NewGameState, ItemState);
 	}
 
-	if(IsFaceless(CapturedUnit))
+	else if(IsFaceless(CapturedUnit))
 	{
     	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_Faceless');
         ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
@@ -278,7 +278,7 @@ static function GiveLootToXCOM(XComGameState NewGameState, XComGameState_Unit Ca
         XComHQ.PutItemInInventory(NewGameState, ItemState);
 	}
 
-	if(IsMuton(CapturedUnit))
+	else if(IsMuton(CapturedUnit))
 	{
     	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_Muton');
         ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
@@ -287,7 +287,7 @@ static function GiveLootToXCOM(XComGameState NewGameState, XComGameState_Unit Ca
         XComHQ.PutItemInInventory(NewGameState, ItemState);
 	}
 
-	if(IsSectoid(CapturedUnit))
+	else if(IsSectoid(CapturedUnit))
 	{
     	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_Sectoid');
         ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
@@ -296,7 +296,7 @@ static function GiveLootToXCOM(XComGameState NewGameState, XComGameState_Unit Ca
         XComHQ.PutItemInInventory(NewGameState, ItemState);
 	}
 
-	if(IsViper(CapturedUnit))
+	else if(IsViper(CapturedUnit))
 	{
     	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_Viper');
         ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
@@ -340,108 +340,258 @@ static function GiveLootToXCOM(XComGameState NewGameState, XComGameState_Unit Ca
 
 }
 
-static public function bool IsAdventTrooper(XComGameState_Unit UnitState)
+static public function bool IsAdventTrooper(XComGameState_Unit CapturedUnit)
 {
-	return UnitState != none && 
-		  ( default.AdventTrooperCharacterTemplates.Find(UnitState.GetMyTemplateName()) != INDEX_NONE || default.AdventTrooperCharacterGroups.Find(UnitState.GetMyTemplateGroupName()) != INDEX_NONE) &&
-           default.ExcludedAdventTrooperTemplates.Find(UnitState.GetMyTemplateName()) == INDEX_NONE;
+  if (CapturedUnit != none)
+  {
+    if (default.ExcludedAdventTrooperTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
+    {
+      return false;
+    }
+    else if (default.AdventTrooperCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
+            || default.AdventTrooperCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
+    {
+      return true;
+    }
+  }
+  return false;
 }
 
-static public function bool IsAdventStunlancer(XComGameState_Unit UnitState)
+static public function bool IsAdventStunlancer(XComGameState_Unit CapturedUnit)
 {
-	return UnitState != none && 
-		  ( default.AdventStunlancerCharacterTemplates.Find(UnitState.GetMyTemplateName()) != INDEX_NONE || default.AdventStunlancerCharacterGroups.Find(UnitState.GetMyTemplateGroupName()) != INDEX_NONE) &&
-           default.ExcludedAdventStunlancerTemplates.Find(UnitState.GetMyTemplateName()) == INDEX_NONE;
+  if (CapturedUnit != none)
+  {
+    if (default.ExcludedAdventStunlancerTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
+    {
+      return false;
+    }
+    else if (default.AdventStunlancerCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
+            || default.AdventStunlancerCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
+    {
+      return true;
+    }
+  }
+  return false;
 }
 
-static public function bool IsAdventPurifier(XComGameState_Unit UnitState)
+static public function bool IsAdventPurifier(XComGameState_Unit CapturedUnit)
 {
-	return UnitState != none && 
-		  ( default.AdventPurifierCharacterTemplates.Find(UnitState.GetMyTemplateName()) != INDEX_NONE || default.AdventPurifierCharacterGroups.Find(UnitState.GetMyTemplateGroupName()) != INDEX_NONE) &&
-           default.ExcludedAdventPurifierTemplates.Find(UnitState.GetMyTemplateName()) == INDEX_NONE;
+  if (CapturedUnit != none)
+  {
+    if (default.ExcludedAdventPurifierTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
+    {
+      return false;
+    }
+    else if (default.AdventPurifierCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
+            || default.AdventPurifierCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
+    {
+      return true;
+    }
+  }
+  return false;
 }
 
-static public function bool IsAdventShieldbearer(XComGameState_Unit UnitState)
+static public function bool IsAdventShieldbearer(XComGameState_Unit CapturedUnit)
 {
-	return UnitState != none && 
-		  ( default.AdventShieldbearerCharacterTemplates.Find(UnitState.GetMyTemplateName()) != INDEX_NONE || default.AdventShieldbearerCharacterGroups.Find(UnitState.GetMyTemplateGroupName()) != INDEX_NONE) &&
-           default.ExcludedAdventShieldbearerTemplates.Find(UnitState.GetMyTemplateName()) == INDEX_NONE;
+  if (CapturedUnit != none)
+  {
+    if (default.ExcludedAdventShieldbearerTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
+    {
+      return false;
+    }
+    else if (default.AdventShieldbearerCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
+            || default.AdventShieldbearerCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
+    {
+      return true;
+    }
+  }
+  return false;
 }
 
-static public function bool IsAdventCaptain(XComGameState_Unit UnitState)
+static public function bool IsAdventCaptain(XComGameState_Unit CapturedUnit)
 {
-	return UnitState != none && 
-		  ( default.AdventCaptainCharacterTemplates.Find(UnitState.GetMyTemplateName()) != INDEX_NONE || default.AdventCaptainCharacterGroups.Find(UnitState.GetMyTemplateGroupName()) != INDEX_NONE) &&
-           default.ExcludedAdventCaptainTemplates.Find(UnitState.GetMyTemplateName()) == INDEX_NONE;
+  if (CapturedUnit != none)
+  {
+    if (default.ExcludedAdventCaptainTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
+    {
+      return false;
+    }
+    else if (default.AdventCaptainCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
+            || default.AdventCaptainCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
+    {
+      return true;
+    }
+  }
+  return false;
 }
 
-static public function bool IsAdventPriest(XComGameState_Unit UnitState)
+static public function bool IsAdventPriest(XComGameState_Unit CapturedUnit)
 {
-	return UnitState != none && 
-		  ( default.AdventPriestCharacterTemplates.Find(UnitState.GetMyTemplateName()) != INDEX_NONE || default.AdventPriestCharacterGroups.Find(UnitState.GetMyTemplateGroupName()) != INDEX_NONE) &&
-           default.ExcludedAdventPriestTemplates.Find(UnitState.GetMyTemplateName()) == INDEX_NONE;
+  if (CapturedUnit != none)
+  {
+    if (default.ExcludedAdventPriestTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
+    {
+      return false;
+    }
+    else if (default.AdventPriestCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
+            || default.AdventPriestCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
+    {
+      return true;
+    }
+  }
+  return false;
 }
 
-static public function bool IsAdventGeneral(XComGameState_Unit UnitState)
+static public function bool IsAdventGeneral(XComGameState_Unit CapturedUnit)
 {
-	return UnitState != none && 
-		  ( default.AdventGeneralCharacterTemplates.Find(UnitState.GetMyTemplateName()) != INDEX_NONE || default.AdventGeneralCharacterGroups.Find(UnitState.GetMyTemplateGroupName()) != INDEX_NONE) &&
-           default.ExcludedAdventGeneralTemplates.Find(UnitState.GetMyTemplateName()) == INDEX_NONE;
+  if (CapturedUnit != none)
+  {
+    if (default.ExcludedAdventGeneralTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
+    {
+      return false;
+    }
+    else if (default.AdventGeneralCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
+            || default.AdventGeneralCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
+    {
+      return true;
+    }
+  }
+  return false;
 }
 
 
-static public function bool IsAndromedon(XComGameState_Unit UnitState)
+static public function bool IsAndromedon(XComGameState_Unit CapturedUnit)
 {
-	return UnitState != none && 
-		  ( default.AndromedonCharacterTemplates.Find(UnitState.GetMyTemplateName()) != INDEX_NONE || default.AndromedonCharacterGroups.Find(UnitState.GetMyTemplateGroupName()) != INDEX_NONE) &&
-           default.ExcludedAndromedonTemplates.Find(UnitState.GetMyTemplateName()) == INDEX_NONE;
+  if (CapturedUnit != none)
+  {
+    if (default.ExcludedAndromedonTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
+    {
+      return false;
+    }
+    else if (default.AndromedonCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
+            || default.AndromedonCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
+    {
+      return true;
+    }
+  }
+  return false;
 }
 
-static public function bool IsArchon(XComGameState_Unit UnitState)
+static public function bool IsArchon(XComGameState_Unit CapturedUnit)
 {
-	return UnitState != none && 
-		  ( default.ArchonCharacterTemplates.Find(UnitState.GetMyTemplateName()) != INDEX_NONE || default.ArchonCharacterGroups.Find(UnitState.GetMyTemplateGroupName()) != INDEX_NONE) &&
-           default.ExcludedArchonTemplates.Find(UnitState.GetMyTemplateName()) == INDEX_NONE;
+  if (CapturedUnit != none)
+  {
+    if (default.ExcludedArchonTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
+    {
+      return false;
+    }
+    else if (default.ArchonCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
+            || default.ArchonCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
+    {
+      return true;
+    }
+  }
+  return false;
 }
 
-static public function bool IsBerserker(XComGameState_Unit UnitState)
+static public function bool IsBerserker(XComGameState_Unit CapturedUnit)
 {
-	return UnitState != none && 
-		  ( default.BerserkerCharacterTemplates.Find(UnitState.GetMyTemplateName()) != INDEX_NONE || default.BerserkerCharacterGroups.Find(UnitState.GetMyTemplateGroupName()) != INDEX_NONE) &&
-           default.ExcludedBerserkerTemplates.Find(UnitState.GetMyTemplateName()) == INDEX_NONE;
+  if (CapturedUnit != none)
+  {
+    if (default.ExcludedBerserkerTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
+    {
+      return false;
+    }
+    else if (default.BerserkerCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
+            || default.BerserkerCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
+    {
+      return true;
+    }
+  }
+  return false;
 }
 
-static public function bool IsChryssalid(XComGameState_Unit UnitState)
+static public function bool IsChryssalid(XComGameState_Unit CapturedUnit)
 {
-	return UnitState != none && 
-		  ( default.ChryssalidCharacterTemplates.Find(UnitState.GetMyTemplateName()) != INDEX_NONE || default.ChryssalidCharacterGroups.Find(UnitState.GetMyTemplateGroupName()) != INDEX_NONE) &&
-           default.ExcludedChryssalidTemplates.Find(UnitState.GetMyTemplateName()) == INDEX_NONE;
+  if (CapturedUnit != none)
+  {
+    if (default.ExcludedChryssalidTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
+    {
+      return false;
+    }
+    else if (default.ChryssalidCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
+            || default.ChryssalidCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
+    {
+      return true;
+    }
+  }
+  return false;
 }
 
-static public function bool IsFaceless(XComGameState_Unit UnitState)
+static public function bool IsFaceless(XComGameState_Unit CapturedUnit)
 {
-	return UnitState != none && 
-		  ( default.FacelessCharacterTemplates.Find(UnitState.GetMyTemplateName()) != INDEX_NONE || default.FacelessCharacterGroups.Find(UnitState.GetMyTemplateGroupName()) != INDEX_NONE) &&
-           default.ExcludedFacelessTemplates.Find(UnitState.GetMyTemplateName()) == INDEX_NONE;
+  if (CapturedUnit != none)
+  {
+    if (default.ExcludedFacelessTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
+    {
+      return false;
+    }
+    else if (default.FacelessCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
+            || default.FacelessCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
+    {
+      return true;
+    }
+  }
+  return false;
 }
 
-static public function bool IsMuton(XComGameState_Unit UnitState)
+static public function bool IsMuton(XComGameState_Unit CapturedUnit)
 {
-	return UnitState != none && 
-		  ( default.MutonCharacterTemplates.Find(UnitState.GetMyTemplateName()) != INDEX_NONE || default.MutonCharacterGroups.Find(UnitState.GetMyTemplateGroupName()) != INDEX_NONE) &&
-           default.ExcludedMutonTemplates.Find(UnitState.GetMyTemplateName()) == INDEX_NONE;
+  if (CapturedUnit != none)
+  {
+    if (default.ExcludedMutonTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
+    {
+      return false;
+    }
+    else if (default.MutonCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
+            || default.MutonCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
+    {
+      return true;
+    }
+  }
+  return false;
 }
 
-static public function bool IsSectoid(XComGameState_Unit UnitState)
+static public function bool IsSectoid(XComGameState_Unit CapturedUnit)
 {
-	return UnitState != none && 
-		  ( default.SectoidCharacterTemplates.Find(UnitState.GetMyTemplateName()) != INDEX_NONE || default.SectoidCharacterGroups.Find(UnitState.GetMyTemplateGroupName()) != INDEX_NONE) &&
-           default.ExcludedSectoidTemplates.Find(UnitState.GetMyTemplateName()) == INDEX_NONE;
+  if (CapturedUnit != none)
+  {
+    if (default.ExcludedSectoidTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
+    {
+      return false;
+    }
+    else if (default.SectoidCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
+            || default.SectoidCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
+    {
+      return true;
+    }
+  }
+  return false;
 }
 
-static public function bool IsViper(XComGameState_Unit UnitState)
+static public function bool IsViper(XComGameState_Unit CapturedUnit)
 {
-	return UnitState != none && 
-		  ( default.ViperCharacterTemplates.Find(UnitState.GetMyTemplateName()) != INDEX_NONE || default.ViperCharacterGroups.Find(UnitState.GetMyTemplateGroupName()) != INDEX_NONE) &&
-           default.ExcludedViperTemplates.Find(UnitState.GetMyTemplateName()) == INDEX_NONE;
+  if (CapturedUnit != none)
+  {
+    if (default.ExcludedViperTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
+    {
+      return false;
+    }
+    else if (default.ViperCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
+            || default.ViperCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
+    {
+      return true;
+    }
+  }
+  return false;
 }

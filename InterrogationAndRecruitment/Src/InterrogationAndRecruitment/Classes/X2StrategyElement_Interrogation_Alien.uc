@@ -12,7 +12,23 @@
 //*******************************************************************************************
 class X2StrategyElement_Interrogation_Alien extends X2StrategyElement_XpackTechs config (InterrogationAndRecruitment);
 
-var config int AndromedonInterrogationDays, ArchonInterrogationDays, BerserkerInterrogationDays, ChryssalidInterrogationDays, FacelessInterrogationDays, MutonInterrogationDays, SectoidInterrogationDays, ViperInterrogationDays;
+var config int AndromedonInterrogationDays, AndromedonMinIntel, AndromedonMaxIntel, AndromedonFacilityLeadChance;
+
+var config int ArchonInterrogationDays, ArchonMinIntel, ArchonMaxIntel, ArchonFacilityLeadChance;
+
+var config int BerserkerInterrogationDays, BerserkerMinIntel, BerserkerMaxIntel, BerserkerFacilityLeadChance;
+
+var config int ChryssalidInterrogationDays, ChryssalidMinIntel, ChryssalidMaxIntel, ChryssalidFacilityLeadChance;
+
+var config int FacelessInterrogationDays, FacelessMinIntel, FacelessMaxIntel, FacelessFacilityLeadChance;
+
+var config int MutonInterrogationDays, MutonMinIntel, MutonMaxIntel, MutonFacilityLeadChance;
+
+var config int SectoidInterrogationDays, SectoidMinIntel, SectoidMaxIntel, SectoidFacilityLeadChance;
+
+var config int ViperInterrogationDays, ViperMinIntel, ViperMaxIntel, ViperFacilityLeadChance;
+
+var config bool AndromedonGivesCorpse, ArchonGivesCorpse, BerserkerGivesCorpse, ChryssalidGivesCorpse, FacelessGivesCorpse, MutonGivesCorpse, SectoidGivesCorpse, ViperGivesCorpse;
 
 static function array<X2DataTemplate> CreateTemplates()
 {
@@ -40,21 +56,19 @@ static function X2DataTemplate CreateTech_InR_Interrogation_Andromedon()
 	local X2TechTemplate Template;
 	local ArtifactCost Resources;
 
-	// It is important to give the prefix "Tech_InR" so that the UIChoose page for the Facility knows what to show :)
 	`CREATE_X2TEMPLATE(class'X2TechTemplate', Template, 'Tech_InR_Interrogation_Andromedon');
-	Template.PointsToComplete = StafferXDays(1, default.AndromedonInterrogationDays); //8 days = 960 
-	Template.strImage = "img:///UILibrary_InR.Tech_Images.TECH_Interrogation_Andromedon";
+	Template.PointsToComplete = StafferXDays(1, default.AndromedonInterrogationDays); //14 days
+	Template.strImage = "img:///UILibrary_InR.Interrogation_Images.Andromedon";
 	Template.bProvingGround = true;
 	Template.bRepeatable = true;
 	Template.SortingTier = 1;
 
+	Template.Requirements.RequiredItems.AddItem('InR_Captive_Andromedon');
+	Template.Requirements.bVisibleIfItemsNotMet=false;
 	Template.Requirements.SpecialRequirementsFn = class'X2StrategyElement_Interrogation_Advent'.static.AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=true;
-
 	// Item Rewards
-	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;
-	Template.RewardDeck = 'Interrogation_Andromedon_Rewards';
+	Template.ResearchCompletedFn = InterrogationTechCompleted;
 	
 	Resources.ItemTemplateName = 'InR_Captive_Andromedon';
 	Resources.Quantity = 1;
@@ -68,21 +82,19 @@ static function X2DataTemplate CreateTech_InR_Interrogation_Archon()
 	local X2TechTemplate Template;
 	local ArtifactCost Resources;
 
-	// It is important to give the prefix "Tech_InR" so that the UIChoose page for the Facility knows what to show :)
 	`CREATE_X2TEMPLATE(class'X2TechTemplate', Template, 'Tech_InR_Interrogation_Archon');
-	Template.PointsToComplete = StafferXDays(1, default.ArchonInterrogationDays); //8 days = 960 
+	Template.PointsToComplete = StafferXDays(1, default.ArchonInterrogationDays); //14 days
 	Template.strImage = "img:///UILibrary_InR.Tech_Images.TECH_Interrogation_Archon";
 	Template.bProvingGround = true;
 	Template.bRepeatable = true;
 	Template.SortingTier = 2;
 
+	Template.Requirements.RequiredItems.AddItem('InR_Captive_Archon');
+	Template.Requirements.bVisibleIfItemsNotMet=false;
 	Template.Requirements.SpecialRequirementsFn = class'X2StrategyElement_Interrogation_Advent'.static.AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=true;
-
 	// Item Rewards
-	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;
-	Template.RewardDeck = 'Interrogation_Archon_Rewards';
+	Template.ResearchCompletedFn = InterrogationTechCompleted;
 	
 	Resources.ItemTemplateName = 'InR_Captive_Archon';
 	Resources.Quantity = 1;
@@ -96,21 +108,19 @@ static function X2DataTemplate CreateTech_InR_Interrogation_Berserker()
 	local X2TechTemplate Template;
 	local ArtifactCost Resources;
 
-	// It is important to give the prefix "Tech_InR" so that the UIChoose page for the Facility knows what to show :)
 	`CREATE_X2TEMPLATE(class'X2TechTemplate', Template, 'Tech_InR_Interrogation_Berserker');
-	Template.PointsToComplete = StafferXDays(1, default.BerserkerInterrogationDays); //8 days = 960 
+	Template.PointsToComplete = StafferXDays(1, default.BerserkerInterrogationDays); //10 days
 	Template.strImage = "img:///UILibrary_InR.Tech_Images.TECH_Interrogation_Berserker";
 	Template.bProvingGround = true;
 	Template.bRepeatable = true;
 	Template.SortingTier = 3;
 
+	Template.Requirements.RequiredItems.AddItem('InR_Captive_Berserker');
+	Template.Requirements.bVisibleIfItemsNotMet=false;
 	Template.Requirements.SpecialRequirementsFn = class'X2StrategyElement_Interrogation_Advent'.static.AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=true;
-
 	// Item Rewards
-	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;
-	Template.RewardDeck = 'Interrogation_Berserker_Rewards';
+	Template.ResearchCompletedFn = InterrogationTechCompleted;
 	
 	Resources.ItemTemplateName = 'InR_Captive_Berserker';
 	Resources.Quantity = 1;
@@ -124,21 +134,19 @@ static function X2DataTemplate CreateTech_InR_Interrogation_Chryssalid()
 	local X2TechTemplate Template;
 	local ArtifactCost Resources;
 
-	// It is important to give the prefix "Tech_InR" so that the UIChoose page for the Facility knows what to show :)
 	`CREATE_X2TEMPLATE(class'X2TechTemplate', Template, 'Tech_InR_Interrogation_Chryssalid');
-	Template.PointsToComplete = StafferXDays(1, default.ChryssalidInterrogationDays); //8 days = 960 
+	Template.PointsToComplete = StafferXDays(1, default.ChryssalidInterrogationDays); //6 days
 	Template.strImage = "img:///UILibrary_InR.Tech_Images.TECH_Interrogation_Chryssalid";
 	Template.bProvingGround = true;
 	Template.bRepeatable = true;
 	Template.SortingTier = 4;
 
+	Template.Requirements.RequiredItems.AddItem('InR_Captive_Chryssalid');
+	Template.Requirements.bVisibleIfItemsNotMet=false;
 	Template.Requirements.SpecialRequirementsFn = class'X2StrategyElement_Interrogation_Advent'.static.AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=true;
-
 	// Item Rewards
-	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;
-	Template.RewardDeck = 'Interrogation_Chryssalid_Rewards';
+	Template.ResearchCompletedFn = InterrogationTechCompleted;
 	
 	Resources.ItemTemplateName = 'InR_Captive_Chryssalid';
 	Resources.Quantity = 1;
@@ -152,21 +160,19 @@ static function X2DataTemplate CreateTech_InR_Interrogation_Faceless()
 	local X2TechTemplate Template;
 	local ArtifactCost Resources;
 
-	// It is important to give the prefix "Tech_InR" so that the UIChoose page for the Facility knows what to show :)
 	`CREATE_X2TEMPLATE(class'X2TechTemplate', Template, 'Tech_InR_Interrogation_Faceless');
-	Template.PointsToComplete = StafferXDays(1, default.FacelessInterrogationDays); //8 days = 960 
+	Template.PointsToComplete = StafferXDays(1, default.FacelessInterrogationDays); //8 days
 	Template.strImage = "img:///UILibrary_InR.Tech_Images.TECH_Interrogation_Faceless";
 	Template.bProvingGround = true;
 	Template.bRepeatable = true;
 	Template.SortingTier = 5;
 
+	Template.Requirements.RequiredItems.AddItem('InR_Captive_Faceless');
+	Template.Requirements.bVisibleIfItemsNotMet=false;
 	Template.Requirements.SpecialRequirementsFn = class'X2StrategyElement_Interrogation_Advent'.static.AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=true;
-
 	// Item Rewards
-	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;
-	Template.RewardDeck = 'Interrogation_Faceless_Rewards';
+	Template.ResearchCompletedFn = InterrogationTechCompleted;
 	
 	Resources.ItemTemplateName = 'InR_Captive_Faceless';
 	Resources.Quantity = 1;
@@ -180,21 +186,19 @@ static function X2DataTemplate CreateTech_InR_Interrogation_Muton()
 	local X2TechTemplate Template;
 	local ArtifactCost Resources;
 
-	// It is important to give the prefix "Tech_InR" so that the UIChoose page for the Facility knows what to show :)
 	`CREATE_X2TEMPLATE(class'X2TechTemplate', Template, 'Tech_InR_Interrogation_Muton');
-	Template.PointsToComplete = StafferXDays(1, default.MutonInterrogationDays); //8 days = 960 
+	Template.PointsToComplete = StafferXDays(1, default.MutonInterrogationDays); //11 days
 	Template.strImage = "img:///UILibrary_InR.Tech_Images.TECH_Interrogation_Muton";
 	Template.bProvingGround = true;
 	Template.bRepeatable = true;
 	Template.SortingTier = 6;
 
+	Template.Requirements.RequiredItems.AddItem('InR_Captive_Muton');
+	Template.Requirements.bVisibleIfItemsNotMet=false;
 	Template.Requirements.SpecialRequirementsFn = class'X2StrategyElement_Interrogation_Advent'.static.AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=true;
-
 	// Item Rewards
-	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;
-	Template.RewardDeck = 'Interrogation_Muton_Rewards';
+	Template.ResearchCompletedFn = InterrogationTechCompleted;
 	
 	Resources.ItemTemplateName = 'InR_Captive_Muton';
 	Resources.Quantity = 1;
@@ -208,21 +212,19 @@ static function X2DataTemplate CreateTech_InR_Interrogation_Sectoid()
 	local X2TechTemplate Template;
 	local ArtifactCost Resources;
 
-	// It is important to give the prefix "Tech_InR" so that the UIChoose page for the Facility knows what to show :)
 	`CREATE_X2TEMPLATE(class'X2TechTemplate', Template, 'Tech_InR_Interrogation_Sectoid');
-	Template.PointsToComplete = StafferXDays(1, default.SectoidInterrogationDays); //8 days = 960 
+	Template.PointsToComplete = StafferXDays(1, default.SectoidInterrogationDays); //7 days
 	Template.strImage = "img:///UILibrary_InR.Tech_Images.TECH_Interrogation_Sectoid";
 	Template.bProvingGround = true;
 	Template.bRepeatable = true;
 	Template.SortingTier = 7;
 
+	Template.Requirements.RequiredItems.AddItem('InR_Captive_Sectoid');
+	Template.Requirements.bVisibleIfItemsNotMet=false;
 	Template.Requirements.SpecialRequirementsFn = class'X2StrategyElement_Interrogation_Advent'.static.AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=true;
-
 	// Item Rewards
-	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;
-	Template.RewardDeck = 'Interrogation_Sectoid_Rewards';
+	Template.ResearchCompletedFn = InterrogationTechCompleted;
 	
 	Resources.ItemTemplateName = 'InR_Captive_Sectoid';
 	Resources.Quantity = 1;
@@ -236,25 +238,256 @@ static function X2DataTemplate CreateTech_InR_Interrogation_Viper()
 	local X2TechTemplate Template;
 	local ArtifactCost Resources;
 
-	// It is important to give the prefix "Tech_InR" so that the UIChoose page for the Facility knows what to show :)
 	`CREATE_X2TEMPLATE(class'X2TechTemplate', Template, 'Tech_InR_Interrogation_Viper');
-	Template.PointsToComplete = StafferXDays(1, default.ViperInterrogationDays); //8 days = 960 
+	Template.PointsToComplete = StafferXDays(1, default.ViperInterrogationDays); //7 days
 	Template.strImage = "img:///UILibrary_InR.Tech_Images.TECH_Interrogation_Viper";
 	Template.bProvingGround = true;
 	Template.bRepeatable = true;
 	Template.SortingTier = 8;
 
+	Template.Requirements.RequiredItems.AddItem('InR_Captive_Viper');
+	Template.Requirements.bVisibleIfItemsNotMet=false;
 	Template.Requirements.SpecialRequirementsFn = class'X2StrategyElement_Interrogation_Advent'.static.AreWeInTheInterrogationFacility;
 
-	Template.Requirements.bVisibleIfItemsNotMet=true;
-
 	// Item Rewards
-	Template.ResearchCompletedFn = class'X2StrategyElement_DefaultTechs'.static.GiveDeckedItemReward;
-	Template.RewardDeck = 'Interrogation_Viper_Rewards';
+	Template.ResearchCompletedFn = InterrogationTechCompleted;
 	
 	Resources.ItemTemplateName = 'InR_Captive_Viper';
 	Resources.Quantity = 1;
 	Template.Cost.ArtifactCosts.AddItem(Resources);
 
 	return Template;
+}
+
+//*******************************************************************************************
+//*******************************************************************************************
+
+static function InterrogationTechCompleted(XComGameState NewGameState, XComGameState_Tech TechState)
+{
+	local X2ItemTemplateManager ItemTemplateManager;
+	local X2ItemTemplate ItemTemplate, FacilityLeadItemTemplate, CorpseItemTemplate;	
+	local XComGameStateHistory History;
+	local XComGameState_HeadquartersXCom XComHQ;
+	local int IntelAmount, FacilityLeadRoll;
+
+	History = `XCOMHISTORY;
+
+	foreach NewGameState.IterateByClassType(class'XComGameState_HeadquartersXCom', XComHQ)
+	{
+		break;
+	}
+
+	if(XComHQ == none)
+	{
+		XComHQ = XComGameState_HeadquartersXCom(History.GetSingleGameStateObjectForClass(class'XComGameState_HeadquartersXCom'));
+		XComHQ = XComGameState_HeadquartersXCom(NewGameState.ModifyStateObject(class'XComGameState_HeadquartersXCom', XComHQ.ObjectID));
+	}
+	
+	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
+	FacilityLeadItemTemplate = ItemTemplateManager.FindItemTemplate('FacilityLeadItem');
+	FacilityLeadRoll = `SYNC_RAND_STATIC(100);
+
+	if(TechState.GetMyTemplateName() == 'Tech_InR_Interrogation_Andromedon')
+	{
+		IntelAmount = default.AndromedonMinIntel + `SYNC_RAND_STATIC(default.AndromedonMaxIntel - default.AndromedonMinIntel + 1);
+		CorpseItemTemplate = ItemTemplateManager.FindItemTemplate('CorpseAndromedon');
+
+		if (default.AndromedonGivesCorpse)
+		{
+			class'XComGameState_HeadquartersXCom'.static.GiveItem(NewGameState, CorpseItemTemplate);
+		}
+
+		if (FacilityLeadRoll < default.AndromedonFacilityLeadChance)
+		{
+			ItemTemplate = ItemTemplateManager.FindItemTemplate('Interrogation_Andromedon_FacilityLead');
+			GiveInterrogationItemReward(NewGameState, TechState, ItemTemplate);
+			class'XComGameState_HeadquartersXCom'.static.GiveItem(NewGameState, FacilityLeadItemTemplate);
+		}
+
+		else
+		{
+			ItemTemplate = ItemTemplateManager.FindItemTemplate('Interrogation_Andromedon_Intel');
+			GiveInterrogationItemReward(NewGameState, TechState, ItemTemplate);
+		}
+	}
+
+	else if(TechState.GetMyTemplateName() == 'Tech_InR_Interrogation_Archon')
+	{
+		IntelAmount = default.ArchonMinIntel + `SYNC_RAND_STATIC(default.ArchonMaxIntel - default.ArchonMinIntel + 1);
+		CorpseItemTemplate = ItemTemplateManager.FindItemTemplate('CorpseArchon');
+
+		if (default.ArchonGivesCorpse)
+		{
+			class'XComGameState_HeadquartersXCom'.static.GiveItem(NewGameState, CorpseItemTemplate);
+		}
+
+		if (FacilityLeadRoll < default.ArchonFacilityLeadChance)
+		{
+			ItemTemplate = ItemTemplateManager.FindItemTemplate('Interrogation_Archon_FacilityLead');
+			GiveInterrogationItemReward(NewGameState, TechState, ItemTemplate);
+			class'XComGameState_HeadquartersXCom'.static.GiveItem(NewGameState, FacilityLeadItemTemplate);
+		}
+		
+		else
+		{
+			ItemTemplate = ItemTemplateManager.FindItemTemplate('Interrogation_Archon_Intel');
+			GiveInterrogationItemReward(NewGameState, TechState, ItemTemplate);
+		}
+	}
+
+	else if(TechState.GetMyTemplateName() == 'Tech_InR_Interrogation_Berserker')
+	{
+		IntelAmount = default.BerserkerMinIntel + `SYNC_RAND_STATIC(default.BerserkerMaxIntel - default.BerserkerMinIntel + 1);
+		CorpseItemTemplate = ItemTemplateManager.FindItemTemplate('CorpseBerserker');
+
+		if (default.BerserkerGivesCorpse)
+		{
+			class'XComGameState_HeadquartersXCom'.static.GiveItem(NewGameState, CorpseItemTemplate);
+		}
+
+		if (FacilityLeadRoll < default.BerserkerFacilityLeadChance)
+		{
+			ItemTemplate = ItemTemplateManager.FindItemTemplate('Interrogation_Berserker_FacilityLead');
+			GiveInterrogationItemReward(NewGameState, TechState, ItemTemplate);
+			class'XComGameState_HeadquartersXCom'.static.GiveItem(NewGameState, FacilityLeadItemTemplate);
+		}
+
+		else
+		{
+			ItemTemplate = ItemTemplateManager.FindItemTemplate('Interrogation_Berserker_Intel');
+			GiveInterrogationItemReward(NewGameState, TechState, ItemTemplate);
+		}
+	}
+
+	else if(TechState.GetMyTemplateName() == 'Tech_InR_Interrogation_Chryssalid')
+	{
+		IntelAmount = default.ChryssalidMinIntel + `SYNC_RAND_STATIC(default.ChryssalidMaxIntel - default.ChryssalidMinIntel + 1);
+		CorpseItemTemplate = ItemTemplateManager.FindItemTemplate('CorpseChryssalid');
+
+		if (default.ChryssalidGivesCorpse)
+		{
+			class'XComGameState_HeadquartersXCom'.static.GiveItem(NewGameState, CorpseItemTemplate);
+		}
+
+		if (FacilityLeadRoll < default.ChryssalidFacilityLeadChance)
+		{
+			ItemTemplate = ItemTemplateManager.FindItemTemplate('Interrogation_Chryssalid_FacilityLead');
+			GiveInterrogationItemReward(NewGameState, TechState, ItemTemplate);
+			class'XComGameState_HeadquartersXCom'.static.GiveItem(NewGameState, FacilityLeadItemTemplate);
+		}
+
+		else
+		{
+			ItemTemplate = ItemTemplateManager.FindItemTemplate('Interrogation_Chryssalid_Intel');
+			GiveInterrogationItemReward(NewGameState, TechState, ItemTemplate);
+		}
+	}
+
+	else if(TechState.GetMyTemplateName() == 'Tech_InR_Interrogation_Faceless')
+	{
+		IntelAmount = default.FacelessMinIntel + `SYNC_RAND_STATIC(default.FacelessMaxIntel - default.FacelessMinIntel + 1);
+		CorpseItemTemplate = ItemTemplateManager.FindItemTemplate('CorpseFaceless');
+
+		if (default.FacelessGivesCorpse)
+		{
+			class'XComGameState_HeadquartersXCom'.static.GiveItem(NewGameState, CorpseItemTemplate);
+		}
+
+		if (FacilityLeadRoll < default.FacelessFacilityLeadChance)
+		{
+			ItemTemplate = ItemTemplateManager.FindItemTemplate('Interrogation_Faceless_FacilityLead');
+			GiveInterrogationItemReward(NewGameState, TechState, ItemTemplate);
+			class'XComGameState_HeadquartersXCom'.static.GiveItem(NewGameState, FacilityLeadItemTemplate);
+		}
+
+		else
+		{
+			ItemTemplate = ItemTemplateManager.FindItemTemplate('Interrogation_Faceless_Intel');
+			GiveInterrogationItemReward(NewGameState, TechState, ItemTemplate);
+		}
+	}
+
+	else if(TechState.GetMyTemplateName() == 'Tech_InR_Interrogation_Muton')
+	{
+		IntelAmount = default.MutonMinIntel + `SYNC_RAND_STATIC(default.MutonMaxIntel - default.MutonMinIntel + 1);
+		CorpseItemTemplate = ItemTemplateManager.FindItemTemplate('CorpseMuton');
+
+		if (default.MutonGivesCorpse)
+		{
+			class'XComGameState_HeadquartersXCom'.static.GiveItem(NewGameState, CorpseItemTemplate);
+		}
+
+		if (FacilityLeadRoll < default.MutonFacilityLeadChance)
+		{
+			ItemTemplate = ItemTemplateManager.FindItemTemplate('Interrogation_Muton_FacilityLead');
+			GiveInterrogationItemReward(NewGameState, TechState, ItemTemplate);
+			class'XComGameState_HeadquartersXCom'.static.GiveItem(NewGameState, FacilityLeadItemTemplate);
+		}
+
+		else
+		{
+			ItemTemplate = ItemTemplateManager.FindItemTemplate('Interrogation_Muton_Intel');
+			GiveInterrogationItemReward(NewGameState, TechState, ItemTemplate);
+		}
+	}
+
+	else if(TechState.GetMyTemplateName() == 'Tech_InR_Interrogation_Sectoid')
+	{
+		IntelAmount = default.SectoidMinIntel + `SYNC_RAND_STATIC(default.SectoidMaxIntel - default.SectoidMinIntel + 1);
+		CorpseItemTemplate = ItemTemplateManager.FindItemTemplate('CorpseSectoid');
+
+		if (default.SectoidGivesCorpse)
+		{
+			class'XComGameState_HeadquartersXCom'.static.GiveItem(NewGameState, CorpseItemTemplate);
+		}
+
+		if (FacilityLeadRoll < default.SectoidFacilityLeadChance)
+		{
+			ItemTemplate = ItemTemplateManager.FindItemTemplate('Interrogation_Sectoid_FacilityLead');
+			GiveInterrogationItemReward(NewGameState, TechState, ItemTemplate);
+			class'XComGameState_HeadquartersXCom'.static.GiveItem(NewGameState, FacilityLeadItemTemplate);
+		}
+
+		else
+		{
+			ItemTemplate = ItemTemplateManager.FindItemTemplate('Interrogation_Sectoid_Intel');
+			GiveInterrogationItemReward(NewGameState, TechState, ItemTemplate);
+		}
+	}
+
+	else if(TechState.GetMyTemplateName() == 'Tech_InR_Interrogation_Viper')
+	{
+		IntelAmount = default.ViperMinIntel + `SYNC_RAND_STATIC(default.ViperMaxIntel - default.ViperMinIntel + 1);
+		CorpseItemTemplate = ItemTemplateManager.FindItemTemplate('CorpseViper');
+
+		if (default.ViperGivesCorpse)
+		{
+			class'XComGameState_HeadquartersXCom'.static.GiveItem(NewGameState, CorpseItemTemplate);
+		}
+
+		if (FacilityLeadRoll < default.ViperFacilityLeadChance)
+		{
+			ItemTemplate = ItemTemplateManager.FindItemTemplate('Interrogation_Viper_FacilityLead');
+			GiveInterrogationItemReward(NewGameState, TechState, ItemTemplate);
+			class'XComGameState_HeadquartersXCom'.static.GiveItem(NewGameState, FacilityLeadItemTemplate);
+		}
+
+		else
+		{
+			ItemTemplate = ItemTemplateManager.FindItemTemplate('Interrogation_Viper_Intel');
+			GiveInterrogationItemReward(NewGameState, TechState, ItemTemplate);
+		}
+	}
+	
+	TechState.IntelReward = IntelAmount;
+	XComHQ.AddResource(NewGameState, 'Intel', IntelAmount);
+}
+
+private static function GiveInterrogationItemReward(XComGameState NewGameState, XComGameState_Tech TechState, X2ItemTemplate ItemTemplate)
+{	
+	class'XComGameState_HeadquartersXCom'.static.GiveItem(NewGameState, ItemTemplate);
+
+	TechState.ItemRewards.Length = 0; // Reset the item rewards array in case the tech is repeatable
+	TechState.ItemRewards.AddItem(ItemTemplate); // Needed for UI Alert display info
+	TechState.bSeenResearchCompleteScreen = false; // Reset the research report for techs that are repeatable
 }

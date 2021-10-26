@@ -55,7 +55,7 @@ static function array<X2DataTemplate> CreateTemplates()
 }
 
 //*******************************************************************************************
-//                                 ADVENT CAPTIVES
+//                                 ADVENT Captives
 //*******************************************************************************************
 
 static function X2DataTemplate CreateCaptive_AdventTrooper()
@@ -157,7 +157,7 @@ static function X2DataTemplate CreateCaptive_AdventGeneral()
 }
 
 //*******************************************************************************************
-//                                 ALIEN CAPTIVES
+//                                 Alien Captives
 //*******************************************************************************************
 
 static function X2DataTemplate CreateCaptive_Andromedon()
