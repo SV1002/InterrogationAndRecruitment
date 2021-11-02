@@ -87,17 +87,29 @@ static function array<X2DataTemplate> CreateTemplates()
 	local array<X2DataTemplate> Templates;
 
 	Templates.AddItem(AddFultonedCapturedUnit());
+	Templates.AddItem(AddEndOfMissionCapture());
 
 	return Templates;
 }
 
-static function X2EventListenerTemplate AddFultonedCapturedUnit()
+static function CHEventListenerTemplate AddFultonedCapturedUnit()
 {
-	local X2EventListenerTemplate Template;
+	local CHEventListenerTemplate Template;
 
-	`CREATE_X2TEMPLATE(class'X2EventListenerTemplate', Template, 'FultonCaptureEvent');
+	`CREATE_X2TEMPLATE(class'CHEventListenerTemplate', Template, 'FultonCaptureEvent');
 	Template.RegisterInTactical = true;
-	Template.AddEvent('UnitRemovedFromPlay', WasCaptured);
+	Template.AddCHEvent('UnitRemovedFromPlay', WasCaptured);
+
+	return Template;
+}
+
+static function CHEventListenerTemplate AddEndOfMissionCapture()
+{
+	local CHEventListenerTemplate Template;
+
+	`CREATE_X2TEMPLATE(class'CHEventListenerTemplate', Template, 'EndOfMissionCaptureEvent');
+	Template.RegisterInTactical = true;
+	Template.AddCHEvent('TacticalGameEnd', EndOfTacticalCapture, ELD_OnStateSubmitted);
 
 	return Template;
 }
@@ -128,7 +140,7 @@ static protected function EventListenerReturn WasCaptured(Object EventData, Obje
 		return ELR_NoInterrupt;
 
 
-	if(KilledUnit.IsAlive() && KilledUnit.bBodyRecovered) //successful capture or extraction by XCOM of a hostile unit
+	if(!KilledUnit.IsDead() && KilledUnit.bBodyRecovered) //successful capture or extraction by XCOM of a hostile unit
 	{
 
 		Presentation = `PRES;
@@ -146,6 +158,39 @@ static protected function EventListenerReturn WasCaptured(Object EventData, Obje
 
 	}
 
+	return ELR_NoInterrupt;
+}
+
+static protected function EventListenerReturn EndOfTacticalCapture(Object EventData, Object EventSource, XComGameState GameState, Name Event, Object CallbackData)
+{
+	local XComGameStateHistory History;
+	local XComGameState_Unit UnitState, OriginalUnitState;
+	local XComGameState_BattleData BattleData;
+	local XComGameState NewGameState;
+	local X2ItemTemplate ItemTemplate;
+
+	History = `XCOMHISTORY;
+  
+  `LOG("Checking for captives to collect");
+  
+	BattleData = XComGameState_BattleData(History.GetSingleGameStateObjectForClass(class'XComGameState_BattleData'));
+
+  if (BattleData.AllTacticalObjectivesCompleted())
+  {
+    foreach History.IterateByClassType(class'XComGameState_Unit', UnitState)
+    {
+      OriginalUnitState = XComGameState_Unit(History.GetOriginalGameStateRevision(UnitState.ObjectID));
+      if (!UnitState.IsInPlay() || UnitState.IsDead()) continue;
+      if (OriginalUnitState.IsFriendlyToLocalPlayer()) continue;
+      if (!UnitState.IsMindControlled() && !UnitState.IsBleedingOut() && !UnitState.IsUnconscious()) continue;
+
+      `LOG("Running Capture Event on:" @ UnitState.GetFullName());
+
+      NewGameState = class'XComGameStateContext_ChangeContainer'.static.CreateChangeState("Adding Hybrid Unit");
+      GiveLootToXCOM(NewGameState, UnitState, ItemTemplate);
+      `GAMERULES.SubmitGameState(NewGameState);
+    }
+  }
 	return ELR_NoInterrupt;
 }
 
@@ -170,9 +215,10 @@ static function GiveLootToXCOM(XComGameState NewGameState, XComGameState_Unit Ca
 
 	if(IsAdventTrooper(CapturedUnit))
 	{
-    	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_AdventTrooper');
+        `LOG("Adding ADVENT Trooper Captive");
+    	  ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_AdventTrooper');
         ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
-		RefItemTemplate = ItemTemplate;
+		    RefItemTemplate = ItemTemplate;
 
         XComHQ.PutItemInInventory(NewGameState, ItemState);
 	}

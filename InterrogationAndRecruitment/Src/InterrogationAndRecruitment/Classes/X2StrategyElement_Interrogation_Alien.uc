@@ -84,7 +84,7 @@ static function X2DataTemplate CreateTech_InR_Interrogation_Archon()
 
 	`CREATE_X2TEMPLATE(class'X2TechTemplate', Template, 'Tech_InR_Interrogation_Archon');
 	Template.PointsToComplete = StafferXDays(1, default.ArchonInterrogationDays); //14 days
-	Template.strImage = "img:///UILibrary_InR.Tech_Images.TECH_Interrogation_Archon";
+	Template.strImage = "img:///UILibrary_InR.Interrogation_Images.Archon";
 	Template.bProvingGround = true;
 	Template.bRepeatable = true;
 	Template.SortingTier = 2;
@@ -110,7 +110,7 @@ static function X2DataTemplate CreateTech_InR_Interrogation_Berserker()
 
 	`CREATE_X2TEMPLATE(class'X2TechTemplate', Template, 'Tech_InR_Interrogation_Berserker');
 	Template.PointsToComplete = StafferXDays(1, default.BerserkerInterrogationDays); //10 days
-	Template.strImage = "img:///UILibrary_InR.Tech_Images.TECH_Interrogation_Berserker";
+	Template.strImage = "img:///UILibrary_InR.Interrogation_Images.Berserker";
 	Template.bProvingGround = true;
 	Template.bRepeatable = true;
 	Template.SortingTier = 3;
@@ -136,7 +136,7 @@ static function X2DataTemplate CreateTech_InR_Interrogation_Chryssalid()
 
 	`CREATE_X2TEMPLATE(class'X2TechTemplate', Template, 'Tech_InR_Interrogation_Chryssalid');
 	Template.PointsToComplete = StafferXDays(1, default.ChryssalidInterrogationDays); //6 days
-	Template.strImage = "img:///UILibrary_InR.Tech_Images.TECH_Interrogation_Chryssalid";
+	Template.strImage = "img:///UILibrary_InR.Interrogation_Images.Chryssalid";
 	Template.bProvingGround = true;
 	Template.bRepeatable = true;
 	Template.SortingTier = 4;
@@ -162,7 +162,7 @@ static function X2DataTemplate CreateTech_InR_Interrogation_Faceless()
 
 	`CREATE_X2TEMPLATE(class'X2TechTemplate', Template, 'Tech_InR_Interrogation_Faceless');
 	Template.PointsToComplete = StafferXDays(1, default.FacelessInterrogationDays); //8 days
-	Template.strImage = "img:///UILibrary_InR.Tech_Images.TECH_Interrogation_Faceless";
+	Template.strImage = "img:///UILibrary_InR.Interrogation_Images.Faceless";
 	Template.bProvingGround = true;
 	Template.bRepeatable = true;
 	Template.SortingTier = 5;
@@ -188,7 +188,7 @@ static function X2DataTemplate CreateTech_InR_Interrogation_Muton()
 
 	`CREATE_X2TEMPLATE(class'X2TechTemplate', Template, 'Tech_InR_Interrogation_Muton');
 	Template.PointsToComplete = StafferXDays(1, default.MutonInterrogationDays); //11 days
-	Template.strImage = "img:///UILibrary_InR.Tech_Images.TECH_Interrogation_Muton";
+	Template.strImage = "img:///UILibrary_InR.Interrogation_Images.Muton";
 	Template.bProvingGround = true;
 	Template.bRepeatable = true;
 	Template.SortingTier = 6;
@@ -214,7 +214,7 @@ static function X2DataTemplate CreateTech_InR_Interrogation_Sectoid()
 
 	`CREATE_X2TEMPLATE(class'X2TechTemplate', Template, 'Tech_InR_Interrogation_Sectoid');
 	Template.PointsToComplete = StafferXDays(1, default.SectoidInterrogationDays); //7 days
-	Template.strImage = "img:///UILibrary_InR.Tech_Images.TECH_Interrogation_Sectoid";
+	Template.strImage = "img:///UILibrary_InR.Interrogation_Images.Sectoid";
 	Template.bProvingGround = true;
 	Template.bRepeatable = true;
 	Template.SortingTier = 7;
@@ -240,7 +240,7 @@ static function X2DataTemplate CreateTech_InR_Interrogation_Viper()
 
 	`CREATE_X2TEMPLATE(class'X2TechTemplate', Template, 'Tech_InR_Interrogation_Viper');
 	Template.PointsToComplete = StafferXDays(1, default.ViperInterrogationDays); //7 days
-	Template.strImage = "img:///UILibrary_InR.Tech_Images.TECH_Interrogation_Viper";
+	Template.strImage = "img:///UILibrary_InR.Interrogation_Images.Viper";
 	Template.bProvingGround = true;
 	Template.bRepeatable = true;
 	Template.SortingTier = 8;

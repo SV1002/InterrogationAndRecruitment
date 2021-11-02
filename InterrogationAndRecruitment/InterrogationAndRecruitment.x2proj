@@ -43,6 +43,9 @@
     <Content Include="Content\Maps\Strategy\Avenger\Rooms\InterrogationFacility\AVG_InterrogationFacility_A_VIEWER.umap">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Content\UILibrary_InR.upk">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Localization\InterrogationAndRecruitment.int">
       <SubType>Content</SubType>
     </Content>

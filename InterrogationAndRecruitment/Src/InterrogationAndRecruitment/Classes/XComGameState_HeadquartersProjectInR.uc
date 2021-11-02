@@ -124,11 +124,23 @@ function int CalculateWorkPerHour(optional XComGameState StartState = none, opti
 {
 	local XComGameStateHistory History;
 	local XComGameState_HeadquartersXCom XComHQ;
-	local int iTotalWork;
+	local int iTotalWork, FilledSlots;
 
 	History = `XCOMHISTORY;
 	XComHQ = XComGameState_HeadquartersXCom(History.GetSingleGameStateObjectForClass(class'XComGameState_HeadquartersXCom'));
 	iTotalWork = InterrogationRate();
+
+	FilledSlots = XComHQ.GetFacilityByName('InterrogationFacility').GetNumFilledStaffSlots();
+
+	if (FilledSlots == 1)
+	{
+		iTotalWork = InterrogationRate() * 2;
+	}
+
+	else if (FilledSlots >= 1)
+	{
+		iTotalWork = InterrogationRate() * 3;
+	}
 
 	// Can't make progress when paused or instant
 	// The only time instant projects should be calculating work per hour is right when an Order that turns them instant activates
