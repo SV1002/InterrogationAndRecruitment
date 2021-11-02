@@ -1,63 +1,340 @@
-;*******************************************************************************************
-;  FILE:   MORE Psionics Ex Machina. int                                 
-;  
-;	File created	25/07/20    21:00
-;	LAST UPDATED    07/10/20    13:30
-;
-;*******************************************************************************************
 
-[XComGame.UIAvengerShortcuts]
-[UISL_AvengerHUD_Shortcuts_InR]
-;label gets the cool UI Psi Icon added to the front
-LabelShortcut_InRFacility="Interrogation Facility"
-TooltipShortcut_InRFacility="Visit Interrogation Facility"
+[InterrogationFacility X2FacilityTemplate]
+DisplayName="Interrogation Facility"
+CompletedSummary="Incorporating some of the old methods used by XCOM during the invasion, we can interrogate any captives we have in out brig for intel, and possibly a lead on an ADVENT facility. We can also try our luck at attempting to 'Recruit' said captives, although not all are going to be willing to join is initially."
+Summary="This Interrogation Facility allows us to interrogate (Or possibly recruit) captives in our brig, giving us intel, and possibly, a facility lead."
 
-[XComGame.UIFacility_InterrogationFacility]
-[UIFacility_InterrogationFacility]
-m_strStartProject="CHOOSE INTERROGATION/RECRUITMENT PROJECT"
-m_strProjectedHours="PROJECTED HOURS:"
-m_strProjectedDays="PROJECTED DAYS:"
-m_strEmptyQueue="No captives currently being interrogatied/recruited"
-m_strCurrentProject="CURRENT:"
-m_strCancelInRProjectTitle="CANCEL INTERROGATION/RECRUITMENT PROJECT?"
-m_strCancelInRProjectBody="Are you sure you want to cancel the <XGParam:StrValue0/> project?"
-m_strProgress="PROGRESS:"
-m_strEditQueue="EDIT QUEUE"
-m_strMoveItemUp="MOVE PROJECT UP"
-m_strMoveItemDown="MOVE PROJECT DOWN"
-m_strRemoveItem="CANCEL PROJECT"
-m_strCheckInventory="VIEW CAPTIVE INVENTORY"
+[InterrogationFacility_SecondCell X2FacilityUpgradeTemplate]
+DisplayName="Second Workstation"
+FacilityName="Interrogation Facility"
+Summary="Extends the work area of the Interrogation Facility, allowing another scientist to be staffed here"
 
-[UIFacility_InterrogationFacilitySlot]
-m_strInRProjectDialogTitle="Unused"
-m_strInRProjectDialogText="You should not be seeing this."
-m_strStopInRProjectDialogTitle="Unused"
-m_strStopInRProjectDialogText="You should not be seeing this."
+[InterrogationFacilityStaffSlot_Sci X2StaffSlotTemplate]
+EmptyText="OPEN: SCIENTIST REQUIRED"
+BonusEmptyText="Decreases Interrogation and Recruitment Times."
+BonusText="PROJECT TIME -%AVENGERBONUS%"
+FilledText="%UNITNAME's scientific knowledge is increasing the effectivness of our Interrogation and Recruitment projects!"
+LockedText="LOCKED: PURCHASE UPGRADE"
 
-[XComGame.UIChooseInRProject]
-[UIChooseInRProject]
-m_strTitle=INTERROGATION/RECRUITMENT
-m_strSubTitleTitle= 
-m_strInventoryLabel=INTERROGATION/RECRUITMENT
-m_strPriority=[PRIORITY]
-m_strPaused=[PAUSED]
-m_strResume=[RESUME]
-m_strEmptyListTitle=NO CAPTIVES AVAILABLE IN BRIG
-m_strBuy=[BEGIN]
-m_strTime=Projected Progress:
 
-[XComGame.UIInventory_InR]
-[UIInventory_InR]
-m_strTitleBig=THE BRIG
-m_strNoLoot=NO CAPTIVES AVAILABLE IN BRIG
-m_strBuy=
 
-[UIAlert_InR]
-m_strInterrogationSuccessful=%PROJECTNAME SUCCESSFUL
 
-[X2EventListener_Capture]
-CapturedTitle="Fulton Success"
-Captured="<XGParam:StrValue0/!ItemName/> was gained from the capture."
 
-LootTitle="Loot Captured"
-Loot="Extra loot was gained from the capture."
+
+
+;===============================================================================================================
+;                                          Interrogation Project Outcomes - ADVENT
+;===============================================================================================================
+
+; Intel Reward
+
+[Interrogation_AdventTrooper_Intel X2ItemTemplate]
+FriendlyName="ADVENT Trooper Interrogation"
+FriendlyNamePlural="ADVENT Trooper Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject. <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_AdventStunlancer_Intel X2ItemTemplate]
+FriendlyName="ADVENT Stun Lancer Interrogation"
+FriendlyNamePlural="ADVENT Stun Lancer Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject. <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_AdventPurifier_Intel X2ItemTemplate]
+FriendlyName="ADVENT Purifier Interrogation"
+FriendlyNamePlural="ADVENT Purifier Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject. <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_AdventShieldbearer_Intel X2ItemTemplate]
+FriendlyName="ADVENT Shieldbearer Interrogation"
+FriendlyNamePlural="ADVENT Shieldbearer Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject. <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_AdventCaptain_Intel X2ItemTemplate]
+FriendlyName="ADVENT Captain Interrogation"
+FriendlyNamePlural="ADVENT Captain Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject. <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_AdventPriest_Intel X2ItemTemplate]
+FriendlyName="ADVENT Priest Interrogation"
+FriendlyNamePlural="ADVENT Priest Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject. <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_AdventGeneral_Intel X2ItemTemplate]
+FriendlyName="ADVENT General Interrogation"
+FriendlyNamePlural="ADVENT General Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject. <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+; Facility Lead Reward
+
+[Interrogation_AdventTrooper_FacilityLead X2ItemTemplate]
+FriendlyName="ADVENT Trooper Interrogation"
+FriendlyNamePlural="ADVENT Trooper Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject as well as a facility lead! <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_AdventStunlancer_FacilityLead X2ItemTemplate]
+FriendlyName="ADVENT Stun Lancer Interrogation"
+FriendlyNamePlural="ADVENT Stun Lancer Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject as well as a facility lead! <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_AdventPurifier_FacilityLead X2ItemTemplate]
+FriendlyName="ADVENT Purifier Interrogation"
+FriendlyNamePlural="ADVENT Purifier Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject as well as a facility lead! <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_AdventShieldbearer_FacilityLead X2ItemTemplate]
+FriendlyName="ADVENT Shieldbearer Interrogation"
+FriendlyNamePlural="ADVENT Shieldbearer Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject as well as a facility lead! <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_AdventCaptain_FacilityLead X2ItemTemplate]
+FriendlyName="ADVENT Captain Interrogation"
+FriendlyNamePlural="ADVENT Captain Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject as well as a facility lead! <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_AdventPriest_FacilityLead X2ItemTemplate]
+FriendlyName="ADVENT Priest Interrogation"
+FriendlyNamePlural="ADVENT Priest Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject as well as a facility lead! <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_AdventGeneral_FacilityLead X2ItemTemplate]
+FriendlyName="ADVENT General Interrogation"
+FriendlyNamePlural="ADVENT General Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject as well as a facility lead! <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+;===============================================================================================================
+;                                          Interrogation Project Outcomes - Alien
+;===============================================================================================================
+
+; Intel Reward
+
+[Interrogation_Andromedon_Intel X2ItemTemplate]
+FriendlyName="Andromedon Interrogation"
+FriendlyNamePlural="Andromedon Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject. <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_Archon_Intel X2ItemTemplate]
+FriendlyName="Archon Interrogation"
+FriendlyNamePlural="Archon Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject. <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_Berserker_Intel X2ItemTemplate]
+FriendlyName="Berserker Interrogation"
+FriendlyNamePlural="Berserker Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject. <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_Chryssalid_Intel X2ItemTemplate]
+FriendlyName="Chryssalid Interrogation"
+FriendlyNamePlural="Chryssalid Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject. <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_Faceless_Intel X2ItemTemplate]
+FriendlyName="Faceless Interrogation"
+FriendlyNamePlural="Faceless Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject. <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_Muton_Intel X2ItemTemplate]
+FriendlyName="Muton Interrogation"
+FriendlyNamePlural="Muton Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject. <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_Sectoid_Intel X2ItemTemplate]
+FriendlyName="Sectoid Interrogation"
+FriendlyNamePlural="Sectoid Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject. <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_Viper_Intel X2ItemTemplate]
+FriendlyName="Viper Interrogation"
+FriendlyNamePlural="Viper Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject. <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+; Facility Lead Reward
+
+[Interrogation_Andromedon_FacilityLead X2ItemTemplate]
+FriendlyName="Andromedon Interrogation"
+FriendlyNamePlural="Andromedon Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject as well as a facility lead! <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_Archon_FacilityLead X2ItemTemplate]
+FriendlyName="Archon Interrogation"
+FriendlyNamePlural="Archon Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject as well as a facility lead! <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_Berserker_FacilityLead X2ItemTemplate]
+FriendlyName="Berserker Interrogation"
+FriendlyNamePlural="Berserker Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject as well as a facility lead! <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_Chryssalid_FacilityLead X2ItemTemplate]
+FriendlyName="Chryssalid Interrogation"
+FriendlyNamePlural="Chryssalid Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject as well as a facility lead! <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_Faceless_FacilityLead X2ItemTemplate]
+FriendlyName="Faceless Interrogation"
+FriendlyNamePlural="Faceless Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject as well as a facility lead! <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_Muton_FacilityLead X2ItemTemplate]
+FriendlyName="Muton Interrogation"
+FriendlyNamePlural="Muton Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject as well as a facility lead! <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_Sectoid_FacilityLead X2ItemTemplate]
+FriendlyName="Sectoid Interrogation"
+FriendlyNamePlural="Sectoid Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject as well as a facility lead! <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+[Interrogation_Viper_FacilityLead X2ItemTemplate]
+FriendlyName="Viper Interrogation"
+FriendlyNamePlural="Viper Interrogations"
+BriefSummary="The interrogation was an success, and we gained Intel from the subject as well as a facility lead! <XGParam:StrValue0/!Quantity/> Intel Rewarded."
+
+;===============================================================================================================
+;                                              Captive Descriptions - ADVENT
+;===============================================================================================================
+
+[InR_Captive_AdventTrooper X2ItemTemplate]
+FriendlyName="ADVENT Trooper Captive"
+FriendlyNamePlural="ADVENT Trooper Captives"
+BriefSummary="This is a ADVENT Trooper Captive we have in the Brig. Due to the lack of ADVENT protocols regarding their capture, Troopers often resign themselves to sitting on a corner of the holding cell."
+
+[InR_Captive_AdventStunlancer X2ItemTemplate]
+FriendlyName="ADVENT Stun Lancer Captive"
+FriendlyNamePlural="ADVENT Stun Lancer Captives"
+BriefSummary="This is a ADVENT Stun Lancer Captive we have in the Brig. Their hyperactive nature clashes with the monotony of the Brig, resulting in them performing all sorts of physical exercises while waiting."
+
+[InR_Captive_AdventPurifier X2ItemTemplate]
+FriendlyName="ADVENT Purifier Captive"
+FriendlyNamePlural="ADVENT Purifier Captives"
+BriefSummary="This is a ADVENT Purifier Captive we have in the Brig. They frequently display visible discomfort at the cell's relatively cool temperature, and have made several demands to increase it."
+
+[InR_Captive_AdventShieldbearer X2ItemTemplate]
+FriendlyName="ADVENT Shieldbearer Captive"
+FriendlyNamePlural="ADVENT Shieldbearer Captives"
+BriefSummary="This is a ADVENT Shieldbearer Captive we have in the Brig. They are often seen walking in a slow, calculated stride, likely a conditioned response to their heavy armor."
+
+[InR_Captive_AdventCaptain X2ItemTemplate]
+FriendlyName="ADVENT Captain Captive"
+FriendlyNamePlural="ADVENT Captain Captives"
+BriefSummary="This is a ADVENT Captain Captive we have in the Brig. They mantain a strict routine, including physical exercise and demanding punctuality for the service of meals."
+
+[InR_Captive_AdventPriest X2ItemTemplate]
+FriendlyName="ADVENT Priest Captive"
+FriendlyNamePlural="ADVENT Priest Captives"
+BriefSummary="This is a ADVENT Priest Captive we have in the Brig. Most of their time is spent in a kneeling position, and can be heard begging forgiveness from the Elders."
+
+[InR_Captive_AdventGeneral X2ItemTemplate]
+FriendlyName="ADVENT General Captive"
+FriendlyNamePlural="ADVENT General Captives"
+BriefSummary="This is a ADVENT General Captive we have in the Brig. They seem to suffer from constant headaches, a probable consequence of the loss of the psionic flow in their command chip."
+
+;===============================================================================================================
+;                                              Captive Descriptions - Alien
+;===============================================================================================================
+
+[InR_Captive_Andromedon X2ItemTemplate]
+FriendlyName="Andromedon Captive"
+FriendlyNamePlural="Andromedon Captives"
+BriefSummary="This is a Andromedon Captive we have in the Brig. A stasis mechanism we installed on their suit allows us to safely interact and clean the cell of the suit's corrosive byproducts."
+
+[InR_Captive_Archon X2ItemTemplate]
+FriendlyName="Archon Captive"
+FriendlyNamePlural="Archon Captives"
+BriefSummary="This is a Archon Captive we have in the Brig. While they spend most of their time in a state of relative inactivity, random bursts of anger and violence are common in our Archon captives."
+
+[InR_Captive_Berserker X2ItemTemplate]
+FriendlyName="Berserker Captive"
+FriendlyNamePlural="Berserker Captives"
+BriefSummary="This is a Berserker Captive we have in the Brig. Due to the heavy amount of sedatives we employ, Berserkers are often seen calmly sleeping in their cell."
+
+[InR_Captive_Chryssalid X2ItemTemplate]
+FriendlyName="Chryssalid Captive"
+FriendlyNamePlural="Chryssalid Captives"
+BriefSummary="This is a Chryssalid Captive we have in the Brig. It constantly moves in the cell, as if experiencing great anxiety due to the confined environment."
+
+[InR_Captive_Faceless X2ItemTemplate]
+FriendlyName="Faceless Captive"
+FriendlyNamePlural="Faceless Captives"
+BriefSummary="This is a Faceless Captive we have in the Brig. Constant attempts at impersonating XCOM personnel in order to get free have forced us to adopt tight surveillance measures."
+
+[InR_Captive_Muton X2ItemTemplate]
+FriendlyName="Muton Captive"
+FriendlyNamePlural="Muton Captives"
+BriefSummary="This is a Muton Captive we have in the Brig. They are often seen performing complex chants and rituals of yet-undetermined purpose, but otherwise mantain remarkable composure in captivity."
+
+[InR_Captive_Sectoid X2ItemTemplate]
+FriendlyName="Sectoid Captive"
+FriendlyNamePlural="Sectoid Captives"
+BriefSummary="This is a Sectoid Captive we have in the Brig. They have demonstrated remarkable compliance with our instructions, although they seem to be somewhat unfamiliar at communication without relying on psionics."
+
+[InR_Captive_Viper X2ItemTemplate]
+FriendlyName="Viper Captive"
+FriendlyNamePlural="Viper Captives"
+BriefSummary="This is a Viper Captive we have in the Brig. They have proved to be very talkative, and alternate between sarcastic insults, threats and attempts to negotiate their release."
+
+;===============================================================================================================
+;                                          Interrogation Project Localization - ADVENT
+;===============================================================================================================
+
+[Tech_InR_Interrogation_AdventTrooper X2TechTemplate]
+DisplayName="ADVENT Trooper Interrogation"
+Summary="Interrogate a captive ADVENT Trooper we have held in the brig to gain intel on the Alien's operations. There's a <font color='#ff4d00'>Miniscule</font> chance we might recieve a facility lead in addition to whatever intel we gain from this Interrogation."
+
+[Tech_InR_Interrogation_AdventStunlancer X2TechTemplate]
+DisplayName="ADVENT Stun Lancer Interrogation"
+Summary="Interrogate a captive ADVENT Stun Lancer we have held in the brig to gain intel on the Alien's operations. There's a <font color='#ff4d00'>Miniscule</font> chance we might recieve a facility lead in addition to whatever intel we gain from this Interrogation."
+
+[Tech_InR_Interrogation_AdventPurifier X2TechTemplate]
+DisplayName="ADVENT Purifier Interrogation"
+Summary="Interrogate a captive ADVENT Purifier we have held in the brig to gain intel on the Alien's operations. There's a <font color='#ffa600'>Tiny</font> chance we might recieve a facility lead in addition to whatever intel we gain from this Interrogation."
+
+[Tech_InR_Interrogation_AdventShieldbearer X2TechTemplate]
+DisplayName="ADVENT Shieldbearer Interrogation"
+Summary="Interrogate a captive ADVENT Shieldbearer we have held in the brig to gain intel on the Alien's operations. There's a <font color='#ffc400'>Small</font> chance we might recieve a facility lead in addition to whatever intel we gain from this Interrogation."
+
+[Tech_InR_Interrogation_AdventCaptain X2TechTemplate]
+DisplayName="ADVENT Captain Interrogation"
+Summary="Interrogate a captive ADVENT Captain we have held in the brig to gain intel on the Alien's operations. There's a <font color='#ffc400'>Moderate</font> chance we might recieve a facility lead in addition to whatever intel we gain from this Interrogation."
+
+[Tech_InR_Interrogation_AdventPriest X2TechTemplate]
+DisplayName="ADVENT Priest Interrogation"
+Summary="Interrogate a captive ADVENT Priest we have held in the brig to gain intel on the Alien's operations. There's a <font color='#ffc400'>High</font> chance we might recieve a facility lead in addition to whatever intel we gain from this Interrogation."
+
+[Tech_InR_Interrogation_AdventGeneral X2TechTemplate]
+DisplayName="ADVENT General Interrogation"
+Summary="Interrogate a captive ADVENT General we have held in the brig to gain intel on the Alien's operations. There's a <font color='#00ff00'>Almost Guaranteed</font> chance we might recieve a facility lead in addition to whatever intel we gain from this Interrogation."
+
+;===============================================================================================================
+;                                          Interrogation Project Localization - Alien
+;===============================================================================================================
+
+[Tech_InR_Interrogation_Andromedon X2TechTemplate]
+DisplayName="Andromedon Interrogation"
+Summary="Interrogate a captive Andromedon we have held in the brig to gain intel on the Alien's operations. There's a <font color='#ffff00'>Moderate</font> chance we might recieve a facility lead in addition to whatever intel we gain from this Interrogation."
+
+[Tech_InR_Interrogation_Archon X2TechTemplate]
+DisplayName="Archon Interrogation"
+Summary="Interrogate a captive Archon we have held in the brig to gain intel on the Alien's operations. There's a <font color='#ffff00'>Moderate</font> chance we might recieve a facility lead in addition to whatever intel we gain from this Interrogation."
+
+[Tech_InR_Interrogation_Berserker X2TechTemplate]
+DisplayName="Berserker Interrogation"
+Summary="Interrogate a captive Berserker we have held in the brig to gain intel on the Alien's operations. There's a <font color='#ffa600'>Tiny</font> chance we might recieve a facility lead in addition to whatever intel we gain from this Interrogation."
+
+[Tech_InR_Interrogation_Chryssalid X2TechTemplate]
+DisplayName="Chryssalid Interrogation"
+Summary="Interrogate a captive Chryssalid we have held in the brig to gain intel on the Alien's operations. There's a <font color='#ff0000'>Abyssmal</font> chance we might recieve a facility lead in addition to whatever intel we gain from this Interrogation."
+
+[Tech_InR_Interrogation_Faceless X2TechTemplate]
+DisplayName="Faceless Interrogation"
+Summary="Interrogate a captive Faceless we have held in the brig to gain intel on the Alien's operations. There's a <font color='#ffff00'>Moderate</font> chance we might recieve a facility lead in addition to whatever intel we gain from this Interrogation."
+
+[Tech_InR_Interrogation_Muton X2TechTemplate]
+DisplayName="Muton Interrogation"
+Summary="Interrogate a captive Muton we have held in the brig to gain intel on the Alien's operations. There's a <font color='#ffff00'>Moderate</font> chance we might recieve a facility lead in addition to whatever intel we gain from this Interrogation."
+
+[Tech_InR_Interrogation_Sectoid X2TechTemplate]
+DisplayName="Sectoid Interrogation"
+Summary="Interrogate a captive Sectoid we have held in the brig to gain intel on the Alien's operations. There's a <font color='#ffff00'>Moderate</font> chance we might recieve a facility lead in addition to whatever intel we gain from this Interrogation."
+
+[Tech_InR_Interrogation_Viper X2TechTemplate]
+DisplayName="Viper Interrogation"
+Summary="Interrogate a captive Viper we have held in the brig to gain intel on the Alien's operations. There's a <font color='#ffff00'>Moderate</font> chance we might recieve a facility lead in addition to whatever intel we gain from this Interrogation."
