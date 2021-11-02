@@ -11,69 +11,15 @@
 //*******************************************************************************************
 class X2EventListener_Capture extends X2EventListener config (InterrogationAndRecruitment);
 
-var config array<name> AdventTrooperCharacterGroups;
-var config array<name> AdventTrooperCharacterTemplates;
-var config array<name> ExcludedAdventTrooperTemplates;
+struct CaptureRewardStruct
+{
+  var array<name> CharacterGroups;
+  var array<name> CharacterTemplates;
+  var array<name> ExcludedCharacterTemplates;
+  var name CaptiveItem;
+};
 
-var config array<name> AdventStunlancerCharacterGroups;
-var config array<name> AdventStunlancerCharacterTemplates;
-var config array<name> ExcludedAdventStunlancerTemplates;
-
-var config array<name> AdventPurifierCharacterGroups;
-var config array<name> AdventPurifierCharacterTemplates;
-var config array<name> ExcludedAdventPurifierTemplates;
-
-var config array<name> AdventShieldbearerCharacterGroups;
-var config array<name> AdventShieldbearerCharacterTemplates;
-var config array<name> ExcludedAdventShieldbearerTemplates;
-
-var config array<name> AdventCaptainCharacterGroups;
-var config array<name> AdventCaptainCharacterTemplates;
-var config array<name> ExcludedAdventCaptainTemplates;
-
-var config array<name> AdventPriestCharacterGroups;
-var config array<name> AdventPriestCharacterTemplates;
-var config array<name> ExcludedAdventPriestTemplates;
-
-var config array<name> AdventGeneralCharacterGroups;
-var config array<name> AdventGeneralCharacterTemplates;
-var config array<name> ExcludedAdventGeneralTemplates;
-
-
-var config array<name> AndromedonCharacterGroups;
-var config array<name> AndromedonCharacterTemplates;
-var config array<name> ExcludedAndromedonTemplates;
-
-var config array<name> ArchonCharacterGroups;
-var config array<name> ArchonCharacterTemplates;
-var config array<name> ExcludedArchonTemplates;
-
-var config array<name> BerserkerCharacterGroups;
-var config array<name> BerserkerCharacterTemplates;
-var config array<name> ExcludedBerserkerTemplates;
-
-var config array<name> ChryssalidCharacterGroups;
-var config array<name> ChryssalidCharacterTemplates;
-var config array<name> ExcludedChryssalidTemplates;
-
-var config array<name> FacelessCharacterGroups;
-var config array<name> FacelessCharacterTemplates;
-var config array<name> ExcludedFacelessTemplates;
-
-var config array<name> MutonCharacterGroups;
-var config array<name> MutonCharacterTemplates;
-var config array<name> ExcludedMutonTemplates;
-
-var config array<name> SectoidCharacterGroups;
-var config array<name> SectoidCharacterTemplates;
-var config array<name> ExcludedSectoidTemplates;
-
-var config array<name> ViperCharacterGroups;
-var config array<name> ViperCharacterTemplates;
-var config array<name> ExcludedViperTemplates;
-
-
-
+var config array<CaptureRewardStruct> arrCaptureReward;
 
 var localized string CapturedTitle;
 var localized string Captured;
@@ -194,164 +140,48 @@ static protected function EventListenerReturn EndOfTacticalCapture(Object EventD
 	return ELR_NoInterrupt;
 }
 
-
 static function GiveLootToXCOM(XComGameState NewGameState, XComGameState_Unit CapturedUnit, out X2ItemTemplate RefItemTemplate)
 {
-	local XComGameStateHistory History; 
-	local XComGameState_HeadquartersXCom XComHQ;
-	local X2ItemTemplateManager ItemMgr;
-	local X2ItemTemplate ItemTemplate;
-	local XComGameState_Item ItemState, LootItem;
-	local name LootName;
-	local XComPresentationLayer Presentation;
-
+    local XComGameStateHistory History; 
+    local XComGameState_HeadquartersXCom XComHQ;
+    local X2ItemTemplateManager ItemMgr;
+    local X2ItemTemplate ItemTemplate;
+    local XComGameState_Item ItemState, LootItem;
+    local CaptureRewardStruct CaptureReward;  
+    local CaptureRewardStruct FoundCaptureReward;  
+	  local name LootName;
+	  local XComPresentationLayer Presentation;
+ 
 	Presentation = `PRES;
-	History = `XCOMHistory;
-	XComHQ = XComGameState_HeadquartersXCom(History.GetSingleGameStateObjectForClass(class'XComGameState_HeadquartersXCom'));
-	XComHQ = XComGameState_HeadquartersXCom(NewGameState.ModifyStateObject(class'XComGameState_HeadquartersXCom', XComHQ.ObjectID));
-	ItemMgr = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
+    History = `XCOMHistory;
+    XComHQ = XComGameState_HeadquartersXCom(History.GetSingleGameStateObjectForClass(class'XComGameState_HeadquartersXCom'));    
+    ItemMgr = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
+    
+    foreach default.arrCaptureReward(CaptureReward)
+    {
+        // Excluded character template - not interested.
+        if (CaptureReward.CharacterGroups.Find(CapturedUnit.GetMyTemplate().CharacterGroupName) != INDEX_NONE)
+        {
+            if (CaptureReward.ExcludedCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE) continue;
+            FoundCaptureReward = CaptureReward;            
+            break;
+        }
 
-	// ADVENT Captives
-
-	if(IsAdventTrooper(CapturedUnit))
-	{
-        `LOG("Adding ADVENT Trooper Captive");
-    	  ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_AdventTrooper');
-        ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
-		    RefItemTemplate = ItemTemplate;
-
-        XComHQ.PutItemInInventory(NewGameState, ItemState);
-	}
-
-	else if(IsAdventStunlancer(CapturedUnit))
-	{
-    	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_AdventStunlancer');
-        ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
-		RefItemTemplate = ItemTemplate;
-
-        XComHQ.PutItemInInventory(NewGameState, ItemState);
-	}
-
-	else if(IsAdventPurifier(CapturedUnit))
-	{
-    	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_AdventPurifier');
-        ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
-		RefItemTemplate = ItemTemplate;
-
-        XComHQ.PutItemInInventory(NewGameState, ItemState);
-	}
-
-	else if(IsAdventShieldbearer(CapturedUnit))
-	{
-    	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_AdventShieldbearer');
-        ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
-		RefItemTemplate = ItemTemplate;
-
-        XComHQ.PutItemInInventory(NewGameState, ItemState);
-	}
-
-	else if(IsAdventCaptain(CapturedUnit))
-	{
-    	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_AdventCaptain');
-        ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
-		RefItemTemplate = ItemTemplate;
-
-        XComHQ.PutItemInInventory(NewGameState, ItemState);
-	}
-
-	else if(IsAdventPriest(CapturedUnit))
-	{
-    	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_AdventPriest');
-        ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
-		RefItemTemplate = ItemTemplate;
-
-        XComHQ.PutItemInInventory(NewGameState, ItemState);
-	}
-
-	else if(IsAdventGeneral(CapturedUnit))
-	{
-    	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_AdventGeneral');
-        ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
-		RefItemTemplate = ItemTemplate;
-
-        XComHQ.PutItemInInventory(NewGameState, ItemState);
-	}
-
-	//Alien Captives
-
-	else if(IsAndromedon(CapturedUnit))
-	{
-    	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_Andromedon');
-        ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
-		RefItemTemplate = ItemTemplate;
-
-        XComHQ.PutItemInInventory(NewGameState, ItemState);
-	}
-
-	else if(IsArchon(CapturedUnit))
-	{
-    	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_Archon');
-        ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
-		RefItemTemplate = ItemTemplate;
-
-        XComHQ.PutItemInInventory(NewGameState, ItemState);
-	}
-
-	else if(IsBerserker(CapturedUnit))
-	{
-    	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_Berserker');
-        ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
-		RefItemTemplate = ItemTemplate;
-
-        XComHQ.PutItemInInventory(NewGameState, ItemState);
-	}
-
-	else if(IsChryssalid(CapturedUnit))
-	{
-    	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_Chryssalid');
-        ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
-		RefItemTemplate = ItemTemplate;
-
-        XComHQ.PutItemInInventory(NewGameState, ItemState);
-	}
-
-	else if(IsFaceless(CapturedUnit))
-	{
-    	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_Faceless');
-        ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
-		RefItemTemplate = ItemTemplate;
-
-        XComHQ.PutItemInInventory(NewGameState, ItemState);
-	}
-
-	else if(IsMuton(CapturedUnit))
-	{
-    	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_Muton');
-        ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
-		RefItemTemplate = ItemTemplate;
-
-        XComHQ.PutItemInInventory(NewGameState, ItemState);
-	}
-
-	else if(IsSectoid(CapturedUnit))
-	{
-    	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_Sectoid');
-        ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
-		RefItemTemplate = ItemTemplate;
-
-        XComHQ.PutItemInInventory(NewGameState, ItemState);
-	}
-
-	else if(IsViper(CapturedUnit))
-	{
-    	ItemTemplate = ItemMgr.FindItemTemplate('InR_Captive_Viper');
-        ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState);
-		RefItemTemplate = ItemTemplate;
-
-        XComHQ.PutItemInInventory(NewGameState, ItemState);
-	}
-
-	//Remove Timed loot
+        // Captured unit is part of configured character templates
+        if (CaptureReward.CharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
+        {            
+            FoundCaptureReward = CaptureReward;
+            break;
+        }  
+    }    
+ 
+    if (FoundCaptureReward.CaptiveItem == '') return; // Couldn't get a reward item. Should probably do a redscreen
+ 
+    ItemTemplate = ItemMgr.FindItemTemplate(FoundCaptureReward.CaptiveItem); // Get template
+    ItemState = ItemTemplate.CreateInstanceFromTemplate(NewGameState); // Generate item state     
+    RefItemTemplate = ItemTemplate; // For our out parameter
+    XComHQ = XComGameState_HeadquartersXCom(NewGameState.ModifyStateObject(class'XComGameState_HeadquartersXCom', XComHQ.ObjectID)); // MSO XCOM HQ
+    XComHQ.PutItemInInventory(NewGameState, ItemState); // Put item into inventory
 
 	if(CapturedUnit.HasLoot()) //we have normal loot. Since this isn't recovered by extract corpses, we do it ourselves.
 	{
@@ -383,261 +213,4 @@ static function GiveLootToXCOM(XComGameState NewGameState, XComGameState_Unit Ca
 
 			`SOUNDMGR.PlayPersistentSoundEvent("UI_Blade_Positive");
 	}
-
-}
-
-static public function bool IsAdventTrooper(XComGameState_Unit CapturedUnit)
-{
-  if (CapturedUnit != none)
-  {
-    if (default.ExcludedAdventTrooperTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
-    {
-      return false;
-    }
-    else if (default.AdventTrooperCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
-            || default.AdventTrooperCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
-    {
-      return true;
-    }
-  }
-  return false;
-}
-
-static public function bool IsAdventStunlancer(XComGameState_Unit CapturedUnit)
-{
-  if (CapturedUnit != none)
-  {
-    if (default.ExcludedAdventStunlancerTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
-    {
-      return false;
-    }
-    else if (default.AdventStunlancerCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
-            || default.AdventStunlancerCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
-    {
-      return true;
-    }
-  }
-  return false;
-}
-
-static public function bool IsAdventPurifier(XComGameState_Unit CapturedUnit)
-{
-  if (CapturedUnit != none)
-  {
-    if (default.ExcludedAdventPurifierTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
-    {
-      return false;
-    }
-    else if (default.AdventPurifierCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
-            || default.AdventPurifierCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
-    {
-      return true;
-    }
-  }
-  return false;
-}
-
-static public function bool IsAdventShieldbearer(XComGameState_Unit CapturedUnit)
-{
-  if (CapturedUnit != none)
-  {
-    if (default.ExcludedAdventShieldbearerTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
-    {
-      return false;
-    }
-    else if (default.AdventShieldbearerCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
-            || default.AdventShieldbearerCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
-    {
-      return true;
-    }
-  }
-  return false;
-}
-
-static public function bool IsAdventCaptain(XComGameState_Unit CapturedUnit)
-{
-  if (CapturedUnit != none)
-  {
-    if (default.ExcludedAdventCaptainTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
-    {
-      return false;
-    }
-    else if (default.AdventCaptainCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
-            || default.AdventCaptainCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
-    {
-      return true;
-    }
-  }
-  return false;
-}
-
-static public function bool IsAdventPriest(XComGameState_Unit CapturedUnit)
-{
-  if (CapturedUnit != none)
-  {
-    if (default.ExcludedAdventPriestTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
-    {
-      return false;
-    }
-    else if (default.AdventPriestCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
-            || default.AdventPriestCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
-    {
-      return true;
-    }
-  }
-  return false;
-}
-
-static public function bool IsAdventGeneral(XComGameState_Unit CapturedUnit)
-{
-  if (CapturedUnit != none)
-  {
-    if (default.ExcludedAdventGeneralTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
-    {
-      return false;
-    }
-    else if (default.AdventGeneralCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
-            || default.AdventGeneralCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
-    {
-      return true;
-    }
-  }
-  return false;
-}
-
-
-static public function bool IsAndromedon(XComGameState_Unit CapturedUnit)
-{
-  if (CapturedUnit != none)
-  {
-    if (default.ExcludedAndromedonTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
-    {
-      return false;
-    }
-    else if (default.AndromedonCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
-            || default.AndromedonCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
-    {
-      return true;
-    }
-  }
-  return false;
-}
-
-static public function bool IsArchon(XComGameState_Unit CapturedUnit)
-{
-  if (CapturedUnit != none)
-  {
-    if (default.ExcludedArchonTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
-    {
-      return false;
-    }
-    else if (default.ArchonCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
-            || default.ArchonCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
-    {
-      return true;
-    }
-  }
-  return false;
-}
-
-static public function bool IsBerserker(XComGameState_Unit CapturedUnit)
-{
-  if (CapturedUnit != none)
-  {
-    if (default.ExcludedBerserkerTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
-    {
-      return false;
-    }
-    else if (default.BerserkerCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
-            || default.BerserkerCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
-    {
-      return true;
-    }
-  }
-  return false;
-}
-
-static public function bool IsChryssalid(XComGameState_Unit CapturedUnit)
-{
-  if (CapturedUnit != none)
-  {
-    if (default.ExcludedChryssalidTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
-    {
-      return false;
-    }
-    else if (default.ChryssalidCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
-            || default.ChryssalidCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
-    {
-      return true;
-    }
-  }
-  return false;
-}
-
-static public function bool IsFaceless(XComGameState_Unit CapturedUnit)
-{
-  if (CapturedUnit != none)
-  {
-    if (default.ExcludedFacelessTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
-    {
-      return false;
-    }
-    else if (default.FacelessCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
-            || default.FacelessCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
-    {
-      return true;
-    }
-  }
-  return false;
-}
-
-static public function bool IsMuton(XComGameState_Unit CapturedUnit)
-{
-  if (CapturedUnit != none)
-  {
-    if (default.ExcludedMutonTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
-    {
-      return false;
-    }
-    else if (default.MutonCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
-            || default.MutonCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
-    {
-      return true;
-    }
-  }
-  return false;
-}
-
-static public function bool IsSectoid(XComGameState_Unit CapturedUnit)
-{
-  if (CapturedUnit != none)
-  {
-    if (default.ExcludedSectoidTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
-    {
-      return false;
-    }
-    else if (default.SectoidCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
-            || default.SectoidCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
-    {
-      return true;
-    }
-  }
-  return false;
-}
-
-static public function bool IsViper(XComGameState_Unit CapturedUnit)
-{
-  if (CapturedUnit != none)
-  {
-    if (default.ExcludedViperTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE)
-    {
-      return false;
-    }
-    else if (default.ViperCharacterTemplates.Find(CapturedUnit.GetMyTemplateName()) != INDEX_NONE
-            || default.ViperCharacterGroups.Find(CapturedUnit.GetMyTemplateGroupName()) != INDEX_NONE)
-    {
-      return true;
-    }
-  }
-  return false;
 }
