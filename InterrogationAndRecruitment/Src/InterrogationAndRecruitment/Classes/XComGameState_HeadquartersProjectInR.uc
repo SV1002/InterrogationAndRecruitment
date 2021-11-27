@@ -182,8 +182,13 @@ function OnProjectCompleted()
 	{
 		TechState = XComGameState_Tech(`XCOMHISTORY.GetGameStateForObjectID(TechRef.ObjectID));
 
+		// If this tech rewards a unit, display a popup to alert the player
+		if (TechState.UnitRewardRef.ObjectID != 0)
+		{
+			UIInterrogationFacilityNewSoldier(TechState.UnitRewardRef);
+		}
 		// If the Proving Ground project rewards an item, display all the project popups on the Geoscape
-		if (TechState.ItemRewards.Length > 0)
+		else if (TechState.ItemRewards.Length > 0)
 		{
 			TechState.DisplayTechCompletePopups();
 
@@ -226,15 +231,23 @@ static function BuildUIAlert_LnR (
 
 static function UIInterrogationFacilityItemReceived (X2ItemTemplate ItemTemplate, StateObjectReference TechRef)
 {
-	local XComHQPresentationLayer HQPres;
 	local DynamicPropertySet PropertySet;
-
-	HQPres = `HQPRES;
 
 	BuildUIAlert_LnR(PropertySet, 'eAlert_ItemReceivedInterrogationFacility', None, '', "Geoscape_ItemComplete");
 	class'X2StrategyGameRulesetDataStructures'.static.AddDynamicNameProperty(PropertySet, 'ItemTemplate', ItemTemplate.DataName);
 	class'X2StrategyGameRulesetDataStructures'.static.AddDynamicIntProperty(PropertySet, 'TechRef', TechRef.ObjectID);
-	HQPres.QueueDynamicPopup(PropertySet);
+	`HQPRES.QueueDynamicPopup(PropertySet);
+}
+
+simulated function UIInterrogationFacilityNewSoldier(StateObjectReference UnitRef)
+{
+	local DynamicPropertySet PropertySet;
+
+
+	BuildUIAlert_LnR(PropertySet, 'eAlert_UnitRecruitedInterrogationFacility', None, 'StaffAdded', "Geoscape_CrewMemberLevelledUp", true);
+	class'X2StrategyGameRulesetDataStructures'.static.AddDynamicIntProperty(PropertySet, 'UnitRef', UnitRef.ObjectID);
+	class'X2StrategyGameRulesetDataStructures'.static.AddDynamicIntProperty(PropertySet, 'EventDataRef', UnitRef.ObjectID);
+	`HQPRES.QueueDynamicPopup(PropertySet);
 }
 
 //---------------------------------------------------------------------------------------

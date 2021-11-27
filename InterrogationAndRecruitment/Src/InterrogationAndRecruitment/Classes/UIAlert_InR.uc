@@ -11,6 +11,7 @@ class UIAlert_InR extends UIAlert;
 
 var public localized String m_strInterrogationSuccessful;
 var public localized String m_strItemReceivedInInventoryInterrogation;
+var public localized String m_strRecruitmentSuccessfulTitle;
 
 simulated function BuildAlert ()
 {
@@ -20,6 +21,10 @@ simulated function BuildAlert ()
 	{
 		case 'eAlert_ItemReceivedInterrogationFacility':
 			InterrogationFacilityItemReceivedAlert();
+		break;
+
+		case 'eAlert_UnitRecruitedInterrogationFacility':
+			BuildNewSoldierRecruitedAlert();
 		break;
 				
 		default:
@@ -36,6 +41,7 @@ simulated function name GetLibraryID ()
 	switch (eAlertName)
 	{
 		case 'eAlert_ItemReceivedInterrogationFacility':	return 'Alert_ProvingGroundAvailable';
+		case 'eAlert_UnitRecruitedInterrogationFacility':	return 'Alert_NewStaffSmall';
 		
 		default:
 			return '';
@@ -44,7 +50,6 @@ simulated function name GetLibraryID ()
 
 simulated function InterrogationFacilityItemReceivedAlert()
 {
-	local XComGameStateHistory History;
 	local XComGameState_Tech TechState;
 	local TAlertAvailableInfo kInfo;
 	local string TitleStr;
@@ -52,9 +57,8 @@ simulated function InterrogationFacilityItemReceivedAlert()
 	local X2ItemTemplateManager TemplateManager;
 	local XGParamTag ParamTag;
 		
-	History = `XCOMHISTORY;
 	ParamTag = XGParamTag(`XEXPANDCONTEXT.FindTag("XGParam"));
-	TechState = XComGameState_Tech(History.GetGameStateForObjectID(
+	TechState = XComGameState_Tech(`XCOMHISTORY.GetGameStateForObjectID(
 		class'X2StrategyGameRulesetDataStructures'.static.GetDynamicIntProperty(DisplayPropertySet, 'TechRef')));
 
 	ParamTag.StrValue0 = string(TechState.IntelReward);
@@ -78,4 +82,30 @@ simulated function InterrogationFacilityItemReceivedAlert()
 	kInfo = FillInTyganAlertAvailable(kInfo);
 
 	BuildAvailableAlert(kInfo);
+}
+
+simulated function BuildNewSoldierRecruitedAlert()
+{
+	local XComGameState_Unit UnitState;
+	local string StaffAvailableStr, UnitTypeIcon;
+
+	UnitState = XComGameState_Unit(`XCOMHISTORY.GetGameStateForObjectID(class'X2StrategyGameRulesetDataStructures'.static.GetDynamicIntProperty(DisplayPropertySet, 'UnitRef')));
+
+	StaffAvailableStr = UnitState.GetName(eNameType_Full);
+	UnitTypeIcon = UnitState.GetSoldierClassIcon();
+
+	// Send over to flash
+	LibraryPanel.MC.BeginFunctionOp("UpdateData");
+	LibraryPanel.MC.QueueString(m_strAttentionCommander);
+	LibraryPanel.MC.QueueString(m_strRecruitmentSuccessfulTitle);
+	LibraryPanel.MC.QueueString(UnitTypeIcon);
+	LibraryPanel.MC.QueueString(StaffAvailableStr);
+	LibraryPanel.MC.QueueString(m_strNewSoldierAvailable);	
+	LibraryPanel.MC.QueueString("");
+	LibraryPanel.MC.QueueString(m_strAccept);
+	LibraryPanel.MC.EndOp();
+	GetOrStartWaitingForStaffImage();
+	//This panel has only one button, for confirm.
+	Button2.DisableNavigation(); 
+	Button2.Hide();
 }

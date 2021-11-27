@@ -18,7 +18,14 @@ var config array<LootTable> LootTables, LootEntry;
 /// create without the content installed. Subsequent saves will record that the content was installed.
 /// </summary>
 static event OnLoadedSavedGame()
-{}
+{
+	AddTechGameStates();
+}
+
+static event OnLoadedSavedGameToStrategy()
+{
+	AddTechGameStates();
+}
 
 /// <summary>
 /// Called when the player starts a new campaign while this DLC / Mod is installed
@@ -32,7 +39,22 @@ static event InstallNewCampaign(XComGameState StartState)
 
 static event OnPostTemplatesCreated()
 {
-    AddLootTables();
+	local X2CharacterTemplateManager	CharacterMgr;
+	local X2DataTemplate				DifficultyTemplate;
+
+	local X2CharacterTemplate			CharacterTemplate;
+
+	CharacterMgr = class'X2CharacterTemplateManager'.static.GetCharacterTemplateManager();
+
+	foreach CharacterMgr.IterateTemplates(DifficultyTemplate, none)
+	{
+		CharacterTemplate = X2CharacterTemplate(DifficultyTemplate);
+
+		if (CharacterTemplate != none && CharacterTemplate.bIsSoldier)
+		{
+			CharacterTemplate.Abilities.AddItem('InR_KnockoutStunned');
+		}
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -50,31 +72,6 @@ static function bool GetDLCEventInfo(out array<HQEvent> arrEvents)
 static function GetInRHQEvents(out array<HQEvent> arrEvents)
 {
 	class'XComGameState_HeadquartersProjectInR'.static.GetAllInRProjects(arrEvents);
-}
-
-
-////////////////////////////////////////////////////////////////////////
-//	FUNCTION TO ADD INR LOOT TABLES
-////////////////////////////////////////////////////////////////////////
-
-static function AddLootTables()
-{
-	local X2LootTableManager	LootManager;
-	local LootTable				LootBag;
-	local LootTableEntry		Entry;
-	
-	LootManager = X2LootTableManager(class'Engine'.static.FindClassDefaultObject("X2LootTableManager"));
-
-	foreach default.LootEntry(LootBag)
-	{
-		if ( LootManager.default.LootTables.Find('TableName', LootBag.TableName) != INDEX_NONE )
-		{
-			foreach LootBag.Loots(Entry)
-			{
-				class'X2LootTableManager'.static.AddEntryStatic(LootBag.TableName, Entry, false);
-			}
-		}	
-	}
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -135,6 +132,54 @@ static function AddTechGameStates()
 	if ( !IsResearchInHistory('Tech_InR_Interrogation_AdventGeneral') )
 	{
 		TechTemplate = X2TechTemplate(StratMgr.FindStrategyElementTemplate('Tech_InR_Interrogation_AdventGeneral'));
+		NewGameState.CreateNewStateObject(class'XComGameState_Tech', TechTemplate);
+	}
+	
+	if ( !IsResearchInHistory('Tech_InR_Interrogation_Andromedon') )
+	{
+		TechTemplate = X2TechTemplate(StratMgr.FindStrategyElementTemplate('Tech_InR_Interrogation_Andromedon'));
+		NewGameState.CreateNewStateObject(class'XComGameState_Tech', TechTemplate);
+	}
+	
+	if ( !IsResearchInHistory('Tech_InR_Interrogation_Archon') )
+	{
+		TechTemplate = X2TechTemplate(StratMgr.FindStrategyElementTemplate('Tech_InR_Interrogation_Archon'));
+		NewGameState.CreateNewStateObject(class'XComGameState_Tech', TechTemplate);
+	}
+	
+	if ( !IsResearchInHistory('Tech_InR_Interrogation_Berserker') )
+	{
+		TechTemplate = X2TechTemplate(StratMgr.FindStrategyElementTemplate('Tech_InR_Interrogation_Berserker'));
+		NewGameState.CreateNewStateObject(class'XComGameState_Tech', TechTemplate);
+	}
+	
+	if ( !IsResearchInHistory('Tech_InR_Interrogation_Chryssalid') )
+	{
+		TechTemplate = X2TechTemplate(StratMgr.FindStrategyElementTemplate('Tech_InR_Interrogation_Chryssalid'));
+		NewGameState.CreateNewStateObject(class'XComGameState_Tech', TechTemplate);
+	}
+	
+	if ( !IsResearchInHistory('Tech_InR_Interrogation_Faceless') )
+	{
+		TechTemplate = X2TechTemplate(StratMgr.FindStrategyElementTemplate('Tech_InR_Interrogation_Faceless'));
+		NewGameState.CreateNewStateObject(class'XComGameState_Tech', TechTemplate);
+	}
+	
+	if ( !IsResearchInHistory('Tech_InR_Interrogation_Muton') )
+	{
+		TechTemplate = X2TechTemplate(StratMgr.FindStrategyElementTemplate('Tech_InR_Interrogation_Muton'));
+		NewGameState.CreateNewStateObject(class'XComGameState_Tech', TechTemplate);
+	}
+	
+	if ( !IsResearchInHistory('Tech_InR_Interrogation_Sectoid') )
+	{
+		TechTemplate = X2TechTemplate(StratMgr.FindStrategyElementTemplate('Tech_InR_Interrogation_Sectoid'));
+		NewGameState.CreateNewStateObject(class'XComGameState_Tech', TechTemplate);
+	}
+	
+	if ( !IsResearchInHistory('Tech_InR_Interrogation_Viper') )
+	{
+		TechTemplate = X2TechTemplate(StratMgr.FindStrategyElementTemplate('Tech_InR_Interrogation_Viper'));
 		NewGameState.CreateNewStateObject(class'XComGameState_Tech', TechTemplate);
 	}
 

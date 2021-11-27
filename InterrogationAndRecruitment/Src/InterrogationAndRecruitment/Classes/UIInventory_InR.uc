@@ -53,14 +53,9 @@ simulated function PopulateData()
 			continue;
 
 		ItemTemplate = Item.GetMyTemplate();
-		if((Item.HasBeenModified() || !ItemTemplate.bInfiniteItem) && !ItemTemplate.HideInInventory && ItemTemplate.HasDisplayData() &&
-			!XComHQ.IsTechResearched(ItemTemplate.HideIfResearched) && !XComHQ.HasItemByName(ItemTemplate.HideIfPurchased))
+		if ( (InStr(ItemTemplate.DataName, "InR_Captive") != -1) )
 		{
-			//this is where we add STUFF we want to show 
-			if ( (InStr(ItemTemplate.DataName, "Captive") != -1) )
-			{
-				InventoryItems.AddItem(Item);
-			}
+			InventoryItems.AddItem(Item);
 		}
 	}
 

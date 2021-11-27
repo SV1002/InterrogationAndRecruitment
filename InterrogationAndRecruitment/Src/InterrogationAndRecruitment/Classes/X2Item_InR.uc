@@ -6,268 +6,108 @@
 //	File created	23/10/21    1:15
 //	LAST UPDATED    23/10/21    1:15
 //
-//  Adds Captured unit templates for this mod's functions
+//  Adds Captured unit templates and Interrogation Rewards for this mod's functions
 //
 //---------------------------------------------------------------------------------------
 
 class X2Item_InR extends X2Item config (InterrogationAndRecruitment);
 
-var config int AdventTrooperCaptiveSellValue;
-var config int AdventStunlancerCaptiveSellValue;
-var config int AdventPurifierCaptiveSellValue;
-var config int AdventShieldbearerCaptiveSellValue;
-var config int AdventCaptainCaptiveSellValue;
-var config int AdventPriestCaptiveSellValue;
-var config int AdventGeneralCaptiveSellValue;
-
-var config int AndromedonCaptiveSellValue;
-var config int ArchonCaptiveSellValue;
-var config int BerserkerCaptiveSellValue;
-var config int ChryssalidCaptiveSellValue;
-var config int FacelessCaptiveSellValue;
-var config int MutonCaptiveSellValue;
-var config int SectoidCaptiveSellValue;
-var config int ViperCaptiveSellValue;
+var config int AdventTrooperCaptiveSellValue, AdventStunlancerCaptiveSellValue, AdventPurifierCaptiveSellValue, AdventShieldbearerCaptiveSellValue, AdventCaptainCaptiveSellValue, AdventPriestCaptiveSellValue, AdventGeneralCaptiveSellValue, AndromedonCaptiveSellValue, ArchonCaptiveSellValue, BerserkerCaptiveSellValue, ChryssalidCaptiveSellValue, FacelessCaptiveSellValue, MutonCaptiveSellValue, SectoidCaptiveSellValue, ViperCaptiveSellValue;
 
 //create the templates
 static function array<X2DataTemplate> CreateTemplates()
 {
 	local array<X2DataTemplate> Resources;
-	
-	Resources.AddItem(CreateCaptive_AdventTrooper());
-	Resources.AddItem(CreateCaptive_AdventStunlancer());
-	Resources.AddItem(CreateCaptive_AdventPurifier());
-	Resources.AddItem(CreateCaptive_AdventShieldbearer());
-	Resources.AddItem(CreateCaptive_AdventCaptain());
-	Resources.AddItem(CreateCaptive_AdventPriest());
-	Resources.AddItem(CreateCaptive_AdventGeneral());
-	
-	Resources.AddItem(CreateCaptive_Andromedon());
-	Resources.AddItem(CreateCaptive_Archon());
-	Resources.AddItem(CreateCaptive_Berserker());
-	Resources.AddItem(CreateCaptive_Chryssalid());
-	Resources.AddItem(CreateCaptive_Faceless());
-	Resources.AddItem(CreateCaptive_Muton());
-	Resources.AddItem(CreateCaptive_Sectoid());
-	Resources.AddItem(CreateCaptive_Viper());
+	// Captives
+	// ADVENT
+	Resources.AddItem(CreateCaptive_InR('InR_Captive_AdventTrooper', "UILibrary_InR.Captive_Images.Captive_AdventTrooper", default.AdventTrooperCaptiveSellValue));
+	Resources.AddItem(CreateCaptive_InR('InR_Captive_AdventStunlancer', "UILibrary_InR.Captive_Images.Captive_AdventStunlancer", default.AdventStunlancerCaptiveSellValue));
+	Resources.AddItem(CreateCaptive_InR('InR_Captive_AdventPurifier', "UILibrary_InR.Captive_Images.Captive_AdventPurifier", default.AdventPurifierCaptiveSellValue));
+	Resources.AddItem(CreateCaptive_InR('InR_Captive_AdventShieldbearer', "UILibrary_InR.Captive_Images.Captive_AdventShieldbearer", default.AdventShieldbearerCaptiveSellValue));
+	Resources.AddItem(CreateCaptive_InR('InR_Captive_AdventCaptain', "UILibrary_InR.Captive_Images.Captive_AdventCaptain", default.AdventCaptainCaptiveSellValue));
+	Resources.AddItem(CreateCaptive_InR('InR_Captive_AdventPriest', "UILibrary_InR.Captive_Images.Captive_AdventPriest", default.AdventPriestCaptiveSellValue));
+	Resources.AddItem(CreateCaptive_InR('InR_Captive_AdventGeneral', "UILibrary_InR.Captive_Images.Captive_AdventGeneral", default.AdventGeneralCaptiveSellValue));
+
+	// Alien
+	Resources.AddItem(CreateCaptive_InR('InR_Captive_Andromedon', "UILibrary_InR.Captive_Images.Captive_Andromedon", default.AndromedonCaptiveSellValue));
+	Resources.AddItem(CreateCaptive_InR('InR_Captive_Archon', "UILibrary_InR.Captive_Images.Captive_Archon", default.ArchonCaptiveSellValue));
+	Resources.AddItem(CreateCaptive_InR('InR_Captive_Berserker', "UILibrary_InR.Captive_Images.Captive_Berserker", default.BerserkerCaptiveSellValue));
+	Resources.AddItem(CreateCaptive_InR('InR_Captive_Chryssalid', "UILibrary_InR.Captive_Images.Captive_Chryssalid", default.ChryssalidCaptiveSellValue));
+	Resources.AddItem(CreateCaptive_InR('InR_Captive_Faceless', "UILibrary_InR.Captive_Images.Captive_Faceless", default.FacelessCaptiveSellValue));
+	Resources.AddItem(CreateCaptive_InR('InR_Captive_Muton', "UILibrary_InR.Captive_Images.Captive_Muton", default.MutonCaptiveSellValue));
+	Resources.AddItem(CreateCaptive_InR('InR_Captive_Sectoid', "UILibrary_InR.Captive_Images.Captive_Sectoid", default.SectoidCaptiveSellValue));
+	Resources.AddItem(CreateCaptive_InR('InR_Captive_Viper', "UILibrary_InR.Captive_Images.Captive_Viper", default.ViperCaptiveSellValue));
+
+	// Rewards - Intel
+	// ADVENT
+	Resources.AddItem(CreateReward_InR('Interrogation_AdventTrooper_Intel', "UILibrary_InR.Interrogation_Images.AdventTrooper_Intel"));
+	Resources.AddItem(CreateReward_InR('Interrogation_AdventStunlancer_Intel', "UILibrary_InR.Interrogation_Images.AdventStunlancer_Intel"));
+	Resources.AddItem(CreateReward_InR('Interrogation_AdventPurifier_Intel', "UILibrary_InR.Interrogation_Images.AdventPurifier_Intel"));
+	Resources.AddItem(CreateReward_InR('Interrogation_AdventShieldbearer_Intel', "UILibrary_InR.Interrogation_Images.AdventShieldbearer_Intel"));
+	Resources.AddItem(CreateReward_InR('Interrogation_AdventCaptain_Intel', "UILibrary_InR.Interrogation_Images.AdventCaptain_Intel"));
+	Resources.AddItem(CreateReward_InR('Interrogation_AdventPriest_Intel', "UILibrary_InR.Interrogation_Images.AdventPriest_Intel"));
+	Resources.AddItem(CreateReward_InR('Interrogation_AdventGeneral_Intel', "UILibrary_InR.Interrogation_Images.AdventGeneral_Intel"));
+
+	// Alien
+	Resources.AddItem(CreateReward_InR('Interrogation_Andromedon_Intel', "UILibrary_InR.Interrogation_Images.Andromedon_Intel"));
+	Resources.AddItem(CreateReward_InR('Interrogation_Archon_Intel', "UILibrary_InR.Interrogation_Images.Archon_Intel"));
+	Resources.AddItem(CreateReward_InR('Interrogation_Berserker_Intel', "UILibrary_InR.Interrogation_Images.Berserker_Intel"));
+	Resources.AddItem(CreateReward_InR('Interrogation_Chryssalid_Intel', "UILibrary_InR.Interrogation_Images.Chryssalid_Intel"));
+	Resources.AddItem(CreateReward_InR('Interrogation_Faceless_Intel', "UILibrary_InR.Interrogation_Images.Faceless_Intel"));
+	Resources.AddItem(CreateReward_InR('Interrogation_Muton_Intel', "UILibrary_InR.Interrogation_Images.Muton_Intel"));
+	Resources.AddItem(CreateReward_InR('Interrogation_Sectoid_Intel', "UILibrary_InR.Interrogation_Images.Sectoid_Intel"));
+	Resources.AddItem(CreateReward_InR('Interrogation_Viper_Intel', "UILibrary_InR.Interrogation_Images.Viper_Intel"));
+
+	// Rewards - Facility Lead
+	// ADVENT
+	Resources.AddItem(CreateReward_InR('Interrogation_AdventTrooper_FacilityLead', "UILibrary_InR.Interrogation_Images.AdventTrooper_FacilityLead"));
+	Resources.AddItem(CreateReward_InR('Interrogation_AdventStunlancer_FacilityLead', "UILibrary_InR.Interrogation_Images.AdventStunlancer_FacilityLead"));
+	Resources.AddItem(CreateReward_InR('Interrogation_AdventPurifier_FacilityLead', "UILibrary_InR.Interrogation_Images.AdventPurifier_FacilityLead"));
+	Resources.AddItem(CreateReward_InR('Interrogation_AdventShieldbearer_FacilityLead', "UILibrary_InR.Interrogation_Images.AdventShieldbearer_FacilityLead"));
+	Resources.AddItem(CreateReward_InR('Interrogation_AdventCaptain_FacilityLead', "UILibrary_InR.Interrogation_Images.AdventCaptain_FacilityLead"));
+	Resources.AddItem(CreateReward_InR('Interrogation_AdventPriest_FacilityLead', "UILibrary_InR.Interrogation_Images.AdventPriest_FacilityLead"));
+	Resources.AddItem(CreateReward_InR('Interrogation_AdventGeneral_FacilityLead', "UILibrary_InR.Interrogation_Images.AdventGeneral_FacilityLead"));
+
+	// Alien
+	Resources.AddItem(CreateReward_InR('Interrogation_Andromedon_FacilityLead', "UILibrary_InR.Interrogation_Images.Andromedon_FacilityLead"));
+	Resources.AddItem(CreateReward_InR('Interrogation_Archon_FacilityLead', "UILibrary_InR.Interrogation_Images.Archon_FacilityLead"));
+	Resources.AddItem(CreateReward_InR('Interrogation_Berserker_FacilityLead', "UILibrary_InR.Interrogation_Images.Berserker_FacilityLead"));
+	Resources.AddItem(CreateReward_InR('Interrogation_Chryssalid_FacilityLead', "UILibrary_InR.Interrogation_Images.Chryssalid_FacilityLead"));
+	Resources.AddItem(CreateReward_InR('Interrogation_Faceless_FacilityLead', "UILibrary_InR.Interrogation_Images.Faceless_FacilityLead"));
+	Resources.AddItem(CreateReward_InR('Interrogation_Muton_FacilityLead', "UILibrary_InR.Interrogation_Images.Muton_FacilityLead"));
+	Resources.AddItem(CreateReward_InR('Interrogation_Sectoid_FacilityLead', "UILibrary_InR.Interrogation_Images.Sectoid_FacilityLead"));
+	Resources.AddItem(CreateReward_InR('Interrogation_Viper_FacilityLead', "UILibrary_InR.Interrogation_Images.Viper_FacilityLead"));
 	
 	return Resources;
 }
 
 //*******************************************************************************************
-//                                 ADVENT Captives
+//                                     Templates
 //*******************************************************************************************
 
-static function X2DataTemplate CreateCaptive_AdventTrooper()
+static function X2DataTemplate CreateCaptive_InR(name TemplateName, string ImagePath, int SellValue)
 {
 	local X2ItemTemplate Template;
 
-	`CREATE_X2TEMPLATE(class'X2ItemTemplate', Template, 'InR_Captive_AdventTrooper');
+	`CREATE_X2TEMPLATE(class'X2ItemTemplate', Template, TemplateName);
 
-	Template.strImage = "img:///UILibrary_InR.Captive_Images.Captive_AdventTrooper";
+	Template.strImage = "img:///" $ImagePath;
 	Template.ItemCat = 'resource';
-	Template.TradingPostValue = default.AdventTrooperCaptiveSellValue;
+	Template.TradingPostValue = SellValue;
 	Template.MaxQuantity = 1;
 
 	return Template;
 }
 
-static function X2DataTemplate CreateCaptive_AdventStunlancer()
+static function X2DataTemplate CreateReward_InR(name TemplateName, string ImagePath)
 {
 	local X2ItemTemplate Template;
 
-	`CREATE_X2TEMPLATE(class'X2ItemTemplate', Template, 'InR_Captive_AdventStunlancer');
+	`CREATE_X2TEMPLATE(class'X2ItemTemplate', Template, TemplateName);
 
-	Template.strImage = "img:///UILibrary_InR.Captive_Images.Captive_AdventStunlancer";
+	Template.strImage = "img:///" $ImagePath;
 	Template.ItemCat = 'resource';
-	Template.TradingPostValue = default.AdventStunlancerCaptiveSellValue;
-	Template.MaxQuantity = 1;
-
-	return Template;
-}
-
-static function X2DataTemplate CreateCaptive_AdventShieldbearer()
-{
-	local X2ItemTemplate Template;
-
-	`CREATE_X2TEMPLATE(class'X2ItemTemplate', Template, 'InR_Captive_AdventShieldbearer');
-
-	Template.strImage = "img:///UILibrary_InR.Captive_Images.Captive_AdventShieldbearer";
-	Template.ItemCat = 'resource';
-	Template.TradingPostValue = default.AdventShieldbearerCaptiveSellValue;
-	Template.MaxQuantity = 1;
-
-	return Template;
-}
-
-static function X2DataTemplate CreateCaptive_AdventPurifier()
-{
-	local X2ItemTemplate Template;
-
-	`CREATE_X2TEMPLATE(class'X2ItemTemplate', Template, 'InR_Captive_AdventPurifier');
-
-	Template.strImage = "img:///UILibrary_InR.Captive_Images.Captive_AdventPurifier";
-	Template.ItemCat = 'resource';
-	Template.TradingPostValue = default.AdventPurifierCaptiveSellValue;
-	Template.MaxQuantity = 1;
-
-	return Template;
-}
-
-static function X2DataTemplate CreateCaptive_AdventCaptain()
-{
-	local X2ItemTemplate Template;
-
-	`CREATE_X2TEMPLATE(class'X2ItemTemplate', Template, 'InR_Captive_AdventCaptain');
-
-	Template.strImage = "img:///UILibrary_InR.Captive_Images.Captive_AdventCaptain";
-	Template.ItemCat = 'resource';
-	Template.TradingPostValue = default.AdventCaptainCaptiveSellValue;
-	Template.MaxQuantity = 1;
-
-	return Template;
-}
-
-static function X2DataTemplate CreateCaptive_AdventPriest()
-{
-	local X2ItemTemplate Template;
-
-	`CREATE_X2TEMPLATE(class'X2ItemTemplate', Template, 'InR_Captive_AdventPriest');
-
-	Template.strImage = "img:///UILibrary_InR.Captive_Images.Captive_AdventPriest";
-	Template.ItemCat = 'resource';
-	Template.TradingPostValue = default.AdventPriestCaptiveSellValue;
-	Template.MaxQuantity = 1;
-
-	return Template;
-}
-
-static function X2DataTemplate CreateCaptive_AdventGeneral()
-{
-	local X2ItemTemplate Template;
-
-	`CREATE_X2TEMPLATE(class'X2ItemTemplate', Template, 'InR_Captive_AdventGeneral');
-
-	Template.strImage = "img:///UILibrary_InR.Captive_Images.Captive_AdventGeneral";
-	Template.ItemCat = 'resource';
-	Template.TradingPostValue = default.AdventGeneralCaptiveSellValue;
-	Template.MaxQuantity = 1;
-
-	return Template;
-}
-
-//*******************************************************************************************
-//                                 Alien Captives
-//*******************************************************************************************
-
-static function X2DataTemplate CreateCaptive_Andromedon()
-{
-	local X2ItemTemplate Template;
-
-	`CREATE_X2TEMPLATE(class'X2ItemTemplate', Template, 'InR_Captive_Andromedon');
-
-	Template.strImage = "img:///UILibrary_InR.Captive_Images.Captive_Andromedon";
-	Template.ItemCat = 'resource';
-	Template.TradingPostValue = default.AndromedonCaptiveSellValue;
-	Template.MaxQuantity = 1;
-
-	return Template;
-}
-
-static function X2DataTemplate CreateCaptive_Archon()
-{
-	local X2ItemTemplate Template;
-
-	`CREATE_X2TEMPLATE(class'X2ItemTemplate', Template, 'InR_Captive_Archon');
-
-	Template.strImage = "img:///UILibrary_InR.Captive_Images.Captive_Archon";
-	Template.ItemCat = 'resource';
-	Template.TradingPostValue = default.ArchonCaptiveSellValue;
-	Template.MaxQuantity = 1;
-
-	return Template;
-}
-
-static function X2DataTemplate CreateCaptive_Berserker()
-{
-	local X2ItemTemplate Template;
-
-	`CREATE_X2TEMPLATE(class'X2ItemTemplate', Template, 'InR_Captive_Berserker');
-
-	Template.strImage = "img:///UILibrary_InR.Captive_Images.Captive_Berserker";
-	Template.ItemCat = 'resource';
-	Template.TradingPostValue = default.BerserkerCaptiveSellValue;
-	Template.MaxQuantity = 1;
-
-	return Template;
-}
-
-static function X2DataTemplate CreateCaptive_Chryssalid()
-{
-	local X2ItemTemplate Template;
-
-	`CREATE_X2TEMPLATE(class'X2ItemTemplate', Template, 'InR_Captive_Chryssalid');
-
-	Template.strImage = "img:///UILibrary_InR.Captive_Images.Captive_Chryssalid";
-	Template.ItemCat = 'resource';
-	Template.TradingPostValue = default.ChryssalidCaptiveSellValue;
-	Template.MaxQuantity = 1;
-
-	return Template;
-}
-
-static function X2DataTemplate CreateCaptive_Faceless()
-{
-	local X2ItemTemplate Template;
-
-	`CREATE_X2TEMPLATE(class'X2ItemTemplate', Template, 'InR_Captive_Faceless');
-
-	Template.strImage = "img:///UILibrary_InR.Captive_Images.Captive_Faceless";
-	Template.ItemCat = 'resource';
-	Template.TradingPostValue = default.FacelessCaptiveSellValue;
-	Template.MaxQuantity = 1;
-
-	return Template;
-}
-
-static function X2DataTemplate CreateCaptive_Muton()
-{
-	local X2ItemTemplate Template;
-
-	`CREATE_X2TEMPLATE(class'X2ItemTemplate', Template, 'InR_Captive_Muton');
-
-	Template.strImage = "img:///UILibrary_InR.Captive_Images.Captive_Muton";
-	Template.ItemCat = 'resource';
-	Template.TradingPostValue = default.MutonCaptiveSellValue;
-	Template.MaxQuantity = 1;
-
-	return Template;
-}
-
-static function X2DataTemplate CreateCaptive_Sectoid()
-{
-	local X2ItemTemplate Template;
-
-	`CREATE_X2TEMPLATE(class'X2ItemTemplate', Template, 'InR_Captive_Sectoid');
-
-	Template.strImage = "img:///UILibrary_InR.Captive_Images.Captive_Sectoid";
-	Template.ItemCat = 'resource';
-	Template.TradingPostValue = default.SectoidCaptiveSellValue;
-	Template.MaxQuantity = 1;
-
-	return Template;
-}
-
-static function X2DataTemplate CreateCaptive_Viper()
-{
-	local X2ItemTemplate Template;
-
-	`CREATE_X2TEMPLATE(class'X2ItemTemplate', Template, 'InR_Captive_Viper');
-
-	Template.strImage = "img:///UILibrary_InR.Captive_Images.Captive_Viper";
-	Template.ItemCat = 'resource';
-	Template.TradingPostValue = default.ViperCaptiveSellValue;
-	Template.MaxQuantity = 1;
+	Template.HideInInventory = true;
 
 	return Template;
 }
